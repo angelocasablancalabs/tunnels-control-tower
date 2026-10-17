@@ -19,7 +19,7 @@ The application **builds and runs correctly**. It is a functional prototype, not
 | Type checking | ⚫ **None** | JavaScript only; no `tsconfig.json`, no `tsc` |
 | Data pipeline | ⚠️ Unverified end-to-end | `fetch_traffic.py` passes `py_compile`; live Gemini call not exercised during this audit (avoids API spend + non-determinism) |
 | Data freshness | ⚠️ Stale snapshot | `last_updated: 2026-10-17 08:32`; 30 days present (`2026-10-17` → `2026-11-15`); Fréjus now 1 `BLOCCO_TOTALE` + 29 `RESTRIZIONE` (taxonomy change, see §5), Mont Blanc 15 `BLOCCO_TOTALE` + 8 `RESTRIZIONE` + 7 `REGOLARE` |
-| CI / CD | ⚫ **None** | No `.github/`, no remote configured; builds are manual |
+| CI / CD | ⚙️ **Configured, not yet run** | `.github/workflows/deploy.yml` — 5 daily UTC crons + `workflow_dispatch`; ingest → commit JSON → `npm ci` / lint / build → Pages; first green run pending (see the 2026-10-17 session entry) |
 | Git state | ⚠️ Dirty | `README.md` deleted-in-worktree (now regenerated), `fetch_traffic.py` + `public/traffic_data.json` modified, `.env` **tracked** |
 
 **Verified render path:** `index.html` → `src/main.jsx` → `src/App.jsx` → `fetch('./traffic_data.json')` (works because `base: './'`). Styling: `src/index.css` → `@import "tailwindcss"` + `@theme` Montserrat. Icons: `lucide-react`.
@@ -137,6 +137,72 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 ---
 
 ## 5. Last Session Notes
+
+### 2026-10-17 — CI/CD: 5×/day traffic ingestion + automated GitHub Pages deploy
+
+- **Changed:**
+  - `.github/workflows/deploy.yml` (new) — one `ubuntu-latest` job triggered by five UTC crons
+    (`30 5`, `0 10`, `30 13`, `30 16`, `0 20`) plus `workflow_dispatch`. It installs
+    `requirements.txt`, regenerates `public/traffic_data.json` with `GEMINI_API_KEY` from repository
+    secrets, commits the snapshot back to the branch as `github-actions[bot]` with `[skip ci]`, then
+    runs `npm ci` → `npm run lint` → `npm run build` and publishes `dist/` with
+    `configure-pages@v6` → `upload-pages-artifact@v5` → `deploy-pages@v5`. Workflow-level write
+    permissions for the repository, Pages and the OIDC token; concurrency group `pages` with
+    `cancel-in-progress: false`; job environment `github-pages` exposing the deployment `page_url`.
+    `TZ=Europe/Rome` on the ingestion step keeps `last_updated` in Italian local time — without it
+    `datetime.now()` records UTC on the runner and the UI renders that value verbatim.
+  - `.github/workflows/deploy.yml` — **action majors differ from the brief's literal snippet:**
+    `checkout@v7`, `setup-python@v7`, `setup-node@v7`, `configure-pages@v6`,
+    `upload-pages-artifact@v5`, `deploy-pages@v5`. Node 20 was removed from GitHub Actions runners on
+    **2026-09-23** (<https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions/>);
+    every version named in the brief targets the retired Node 20 runtime (`checkout@v4`,
+    `setup-python@v5`, `setup-node@v4`, `configure-pages@v5` and `deploy-pages@v4` declare
+    `using: node20`; `upload-pages-artifact@v3` is a composite that pins `upload-artifact@v4`, also
+    node20) and would not run. Cron values, permissions, step names, step order and the ingestion/commit
+    semantics are exactly as specified.
+  - `README.md` — Deployment section documents the workflow, the one-off GitHub setup (Pages source =
+    GitHub Actions, `GEMINI_API_KEY` secret, public repository, no required reviewers, default branch)
+    and the fixed-UTC/DST caveat; local pipeline steps now install `requirements.txt` instead of the
+    two packages by name.
+- **Verified:**
+  - `actionlint v1.7.12 -no-color .github/workflows/deploy.yml` → **exit 0**, zero findings.
+  - YAML parse + 35 structural assertions (triggers, cron list, permissions, concurrency, job,
+    11 steps in order, action refs, inputs, secret wiring, artifact path) → **PASS**, exit 0.
+  - JSON Schema `github-workflow.json` (SchemaStore, fetched 2026-10-17) validated with Ajv →
+    **SCHEMA VALID**, exit 0.
+  - `requirements.txt` → `google-genai==2.31.0` + `python-dotenv==1.2.4`, both live on PyPI with
+    `requires_python >= 3.10` (so the workflow's Python 3.12 is supported).
+  - `vite.config.js` → `base: './'` unchanged.
+  - `npm run lint` → ✅ **exit 0**, zero problems.
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 modules,
+    `dist/assets/index-P-B3mdvj.css` 21.85 kB (gzip 5.21 kB) /
+    `dist/assets/index-sXUNYrPu.js` 240.19 kB (gzip 74.77 kB).
+  - Build-delta triage (`AGENTS.md` §4.7 detector): compared with a pristine `HEAD` build in a
+    temporary checkout (`index-zfbmaHZB.css` 21.82 kB / `index-tHFDlJnq.js` 240.19 kB), the **JS bytes
+    are byte-for-byte identical**; only its filename hash moved because the entry chunk hash
+    incorporates its CSS dependency. The CSS is **+22 B**: Tailwind v4 scans
+    `.github/workflows/deploy.yml`, and the workflow's repository-write permission key collides with a
+    display-utility name, so one unused rule is emitted. That is source scanning of build
+    configuration, not a class token written into prose; the durable fix (exclude `.github/` from
+    Tailwind source detection via `@source not`) is a build-configuration change left to the owner.
+  - **Not verified:** the job has not been executed on GitHub. `.env` is untracked in this clone
+    (`git ls-files`), so the ingestion step cannot read a stale local key; the run depends on the
+    repository secret and on Pages being enabled.
+- **Debt touched:** **TD-13** (no CI/deploy automation) now has a workflow; it stays open until the
+  first green run on GitHub. **R-2**'s CI half is implemented in the same sense. TD-01 note: `.env`
+  is **not** tracked in this clone despite the §1 row — verify the remote history before assuming the
+  key was never committed.
+- **Blocked / needs decision:**
+  1. ⚠ **The brief's action versions are unusable here** (see above); node24 majors were used instead.
+     If the literal majors are mandatory, the workflow will fail on the runner.
+  2. ⚠ **DST drift:** crons are fixed UTC, so during CEST (late March–late October) every run fires one
+     hour after its label — the 05:30 UTC "06:30" run lands at 07:30 Italian time. Fixing it needs
+     seasonal cron pairs plus a local-time gate, or accepting the drift; not changed unilaterally.
+  3. ⚠ **First-run prerequisites are external:** secret `GEMINI_API_KEY`, Pages source set to GitHub
+     Actions, repository public (or a paid plan), no required reviewers on `github-pages`, and the
+     workflow merged to `main`.
+  4. ℹ `git push` is `|| echo`-guarded per the brief, so a rejected push (branch protection/race) is not
+     surfaced as a failure; that run would still build and deploy but not persist the snapshot.
 
 ### 2026-10-17 — Ricerca per data in formato italiano naturale (`21/10/2026`, `21/10`, `21 ottobre`)
 

@@ -110,12 +110,11 @@ The data pipeline calls the Gemini API with Google Search grounding. It requires
 # 1. Create a .env file in the repository root
 GEMINI_API_KEY=your_key_here
 
-# 2. Install the Python dependencies into a DEDICATED virtual environment
-#    (currently not pinned — see TD-06/TD-20 in PROGRESS.md)
+# 2. Install the pinned Python dependencies into a DEDICATED virtual environment
 python -m venv .venv
 .venv\Scripts\activate          # Windows
 # source .venv/bin/activate     # macOS / Linux
-python -m pip install google-genai python-dotenv
+python -m pip install -r requirements.txt
 
 # 3. Regenerate public/traffic_data.json
 python fetch_traffic.py
@@ -123,7 +122,7 @@ python fetch_traffic.py
 
 > ⚠️ **Never commit `.env`.** The key must be treated as a secret and rotated if it is ever exposed.
 >
-> ⚠️ **Always use the `.venv` above.** These packages currently install into the *global* `Python314` site-packages, which is shared with unrelated projects carrying 21 outdated packages (TD-20). A transitive bump there can break this pipeline with no change in this repository.
+> ⚠️ **Always use the `.venv` above.** It pins `google-genai==2.31.0` and `python-dotenv==1.2.4` (TD-20); the shared global `Python314` site-packages belongs to unrelated projects and drifts independently. CI installs the same pinned `requirements.txt` and injects `GEMINI_API_KEY` from repository secrets, so no `.env` is needed there.
 
 ## Available Scripts
 
@@ -139,7 +138,24 @@ python fetch_traffic.py
 
 ## Deployment
 
-`vite.config.js` sets `base: './'` so the build emits relative asset URLs, which makes `dist/` deployable to a static host at any sub-path (e.g. GitHub Pages). No CI workflow is configured yet — builds are produced manually with `npm run build`.
+`vite.config.js` sets `base: './'` so the build emits relative asset URLs, which makes `dist/` deployable to a static host at any sub-path (e.g. GitHub Pages).
+
+Deployment is automated by [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml). A single job runs five times a day (fixed UTC crons covering the Italian dispatch windows) and on manual `workflow_dispatch`:
+
+1. installs `requirements.txt`, then regenerates `public/traffic_data.json` with `GEMINI_API_KEY` injected from repository secrets (`TZ=Europe/Rome`, so `last_updated` stays Italian local time);
+2. commits the fresh snapshot back to the branch as `github-actions[bot]` (`[skip ci]`), so git history records the real data over time;
+3. runs `npm ci`, `npm run lint` and `npm run build`;
+4. publishes `dist/` through the official Pages actions (`configure-pages`, `upload-pages-artifact`, `deploy-pages`).
+
+### One-off setup (GitHub UI)
+
+- **Settings → Pages → Build and deployment → Source: GitHub Actions.** `configure-pages` fails if Pages is still on "Deploy from a branch".
+- **Settings → Secrets and variables → Actions → New repository secret:** `GEMINI_API_KEY`.
+- The repository should be **public** to stay within the free Actions-minutes and Pages tiers.
+- Leave the `github-pages` environment without required reviewers, or scheduled runs will queue instead of deploying.
+- The workflow must be on the **default branch** (`main`) before the schedule fires or the *Run workflow* button appears.
+
+> **DST caveat:** the crons are fixed UTC. Italy is UTC+1 in winter (CET) and UTC+2 in summer (CEST), so every run fires one hour later in local time from late March to late October.
 
 ## Project Governance
 
