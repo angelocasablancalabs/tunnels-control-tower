@@ -165,10 +165,22 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
   **exit 0, zero problems**; `npm run build` → **exit 0**, `vite v8.3.4`, 1921 modules,
   JS 242.14 kB (gzip 75.23 kB) / CSS 22.93 kB (gzip 5.38 kB) in 578 ms. `npm ci --dry-run`
   → lockfile in sync. No test runner exists, so no test claim is made.
+  - **End-to-end in GitHub Actions (verified against the Actions API):**
+    - Push run [39046707459](https://github.com/angelocasablancalabs/tunnels-control-tower/actions/runs/39046707459)
+      (commit `f54fccc`) → **success**: *Set up Python*, *Install Python Dependencies*,
+      *Run Traffic Ingestion Script* and *Commit Fresh Traffic Data* all **skipped**;
+      *Lint and Build Production SPA*, *Upload Artifact* and *Deploy to GitHub Pages* all
+      **success**. Live site served the same asset hashes produced by the local build
+      (`index--baTNnSY.js`, `index-DERdA4Sf.css`).
+    - Manual `workflow_dispatch` run [39047037567](https://github.com/angelocasablancalabs/tunnels-control-tower/actions/runs/39047037567)
+      → **success** with every step executed: traffic ingestion ran with `TZ: Europe/Rome`,
+      the bot committed `67f37d6 Auto-update traffic data [skip ci]`, and the Pages deploy
+      completed. That bot push produced **no** follow-up workflow run, confirming the
+      `paths-ignore` loop guard.
 - **Debt touched:** none.
-- **Blocked / needs decision:** end-to-end GitHub Actions behaviour (push run, manual
-  dispatch, live Pages refresh) is verified against the GitHub API after the push; local
-  tooling cannot execute the runner itself.
+- **Blocked / needs decision:** none. The timed `schedule` trigger itself cannot be forced
+  on demand; its gate logic is verified by the CET/CEST simulation above, and the same
+  step sequence it delegates to is proven by the push and dispatch runs.
 
 ### 2026-10-17 — AI-synthesis disclaimer tooltip on the header subtitle
 
