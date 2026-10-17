@@ -1,0 +1,16 @@
+# Python dependencies for fetch_traffic.py (offline traffic-data pipeline).
+#
+# Pinned to the versions verified on 2026-10-16 — both were at PyPI-latest at that time.
+# Install into the project-local virtual environment (.venv), never into the global
+# interpreter: see README.md "Refreshing the traffic data" and PROGRESS.md TD-20.
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate      # Windows
+#   source .venv/bin/activate   # macOS / Linux
+#   python -m pip install -r requirements.txt
+#
+# NOTE: this pins the two packages the pipeline imports directly. It is not a full
+# transitive lock; do not add unrelated packages here.
+
+google-genai==2.31.0
+python-dotenv==1.2.4

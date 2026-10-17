@@ -1,0 +1,40 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Transient: backup of the pre-upgrade node_modules, left behind when a running
+# Vite dev server kept two native .node binaries locked. Safe to delete once the
+# dev server is stopped. Not part of the project.
+node_modules.broken/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment / secrets — NEVER commit API keys
+.env
+.env.*
+!.env.example
+
+# Python (data pipeline: fetch_traffic.py)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
