@@ -138,6 +138,41 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-17 — Official operator logos in the desktop headers and the mobile corridor blocks
+
+- **Changed:**
+  - `public/logos/sftrf.png` (new, 964×617) — official SFTRF emblem, extracted at full
+    resolution from the operator's own site asset (`logo.svg`, which wraps a 964×617 PNG),
+    transparency preserved.
+  - `public/logos/tmb.png` (new, 400×502) — official TMB‑GEIE emblem, rasterised from the
+    operator's site asset (`tunnelmb.net/front/assets/logo.3a840.svg`) at 400 px width with a
+    transparent background. Both files sit in `public/`, so Vite copies them verbatim into
+    `dist/logos/` and the existing relative `base: './'` resolves them on GitHub Pages too.
+  - `src/App.jsx` — two surgical edits, no restructuring:
+    - desktop `<thead>`: each corridor `<th>` now wraps a white padded badge holding the
+      emblem (`h-5`, `sm:h-6`, auto width, contained) next to the existing label text. All
+      pre-existing `sticky` / width / rounded classes on the `<th>` were left untouched.
+    - mobile cards: each corridor block's title line is now a flex row with the same badge
+      (compact `h-5`) beside the label, replacing the former bare label `<div>`.
+  - `README.md` — architecture diagram notes the `public/logos/` emblems and their relative
+    reference.
+- **Verified:**
+  - `npm run lint` → ✅ exit 0, no output.
+  - `npm run build` → ✅ exit 0; `vite v8.3.4`, 1921 modules, `dist/index.html` 0.79 kB,
+    `dist/assets/index-*.css` 23.83 kB (gzip 5.48 kB), `dist/assets/index-*.js` 243.54 kB
+    (gzip 75.36 kB); `dist/logos/{sftrf,tmb}.png` present and the bundle references
+    `logos/sftrf.png` / `logos/tmb.png`.
+  - Browser check via headless Chrome against `npm run preview` (CDP-driven): with
+    **Tutti i Valichi** both headers carry their emblem (Fréjus badge 37×24 px, Monte Bianco
+    19×24 px, `img.complete === true`, no document overflow); **Solo Fréjus** → one header,
+    one badge, `rounded-tr-xl` corner intact, 2 columns; **Solo Monte Bianco** → mirrors it.
+    At a 390 px mobile viewport there is **zero** horizontal overflow in either filtered
+    state and every visible emblem renders at 20 px height (SFTRF 31×20, TMB 16×20).
+- **Debt touched:** none.
+- **Blocked / needs decision:** none. The emblems are trademarked operator brand assets used
+  for source identification; if the project ever needs a formal licence note, add it to
+  `README.md`.
+
 ### 2026-10-17 — Rome-time gate (dual CET/CEST cron pairs) + zero-cost deploy on `git push`
 
 - **Changed:** `.github/workflows/deploy.yml` (replaced) — two operational fixes.

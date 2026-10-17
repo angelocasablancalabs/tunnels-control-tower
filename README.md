@@ -54,6 +54,10 @@ public/traffic_data.json         Static data contract, committed to the repo
 src/App.jsx                      Dashboard: filters, timeline math, desktop table + mobile cards
 ```
 
+Operator emblems live in `public/logos/` (`sftrf.png`, `tmb.png`). `src/App.jsx` references
+them with relative `./logos/...` URLs, so Vite copies them verbatim into `dist/logos/` and
+the same path works in dev and on GitHub Pages.
+
 ### Data contract (`public/traffic_data.json`)
 
 ```jsonc
