@@ -484,8 +484,12 @@ export default function App() {
                 {(filterAxis === 'ALL' || filterAxis === 'FREJUS') && (
                   <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-800 border-b border-slate-300 ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''} ${filterAxis === 'FREJUS' ? 'rounded-tr-xl' : ''}`}>
                     <div className="flex items-center gap-2.5">
-                      <div className="bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
-                        <img src="./logos/sftrf.png" alt="SFTRF" className="h-5 sm:h-6 w-auto object-contain" />
+                      <div className="w-14 h-7.5 bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
+                        <img
+                          src="./logos/sftrf.png"
+                          alt="SFTRF"
+                          className="max-h-full max-w-full object-contain"
+                        />
                       </div>
                       <span className="text-white text-xs uppercase tracking-wider font-bold">
                         Asse Fréjus (A43 &bull; T4 &bull; A32)
@@ -496,8 +500,12 @@ export default function App() {
                 {(filterAxis === 'ALL' || filterAxis === 'MONTE_BIANCO') && (
                   <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-800 border-b border-slate-300 rounded-tr-xl ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''}`}>
                     <div className="flex items-center gap-2.5">
-                      <div className="bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
-                        <img src="./logos/tmb.png" alt="TMB-GEIE" className="h-5 sm:h-6 w-auto object-contain" />
+                      <div className="w-14 h-7.5 bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
+                        <img
+                          src="./logos/tmb.png"
+                          alt="TMB-GEIE"
+                          className="max-h-full max-w-full object-contain"
+                        />
                       </div>
                       <span className="text-white text-xs uppercase tracking-wider font-bold">
                         Asse Monte Bianco (A40 &bull; TMB &bull; A5)
@@ -596,8 +604,12 @@ export default function App() {
                       <TimelineRibbon day={day} prevDay={prevDay} corridorKey="frejus" />
                       <div className="p-3 flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1.5">
-                          <div className="bg-white p-1 rounded border border-slate-200/90 shadow-2xs shrink-0 flex items-center justify-center">
-                            <img src="./logos/sftrf.png" alt="SFTRF" className="h-5 w-auto object-contain" />
+                          <div className="w-12 h-6 bg-white p-0.5 rounded border border-slate-200/90 shadow-2xs shrink-0 flex items-center justify-center">
+                            <img
+                              src="./logos/sftrf.png"
+                              alt="SFTRF"
+                              className="max-h-full max-w-full object-contain"
+                            />
                           </div>
                           <span className="text-[11px] font-extrabold uppercase tracking-wide text-slate-700">
                             Asse Fréjus
@@ -614,8 +626,12 @@ export default function App() {
                       <TimelineRibbon day={day} prevDay={prevDay} corridorKey="monte_bianco" />
                       <div className="p-3 flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1.5">
-                          <div className="bg-white p-1 rounded border border-slate-200/90 shadow-2xs shrink-0 flex items-center justify-center">
-                            <img src="./logos/tmb.png" alt="TMB-GEIE" className="h-5 w-auto object-contain" />
+                          <div className="w-12 h-6 bg-white p-0.5 rounded border border-slate-200/90 shadow-2xs shrink-0 flex items-center justify-center">
+                            <img
+                              src="./logos/tmb.png"
+                              alt="TMB-GEIE"
+                              className="max-h-full max-w-full object-contain"
+                            />
                           </div>
                           <span className="text-[11px] font-extrabold uppercase tracking-wide text-slate-700">
                             Asse Monte Bianco

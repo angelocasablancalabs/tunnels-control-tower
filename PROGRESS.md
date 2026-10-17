@@ -138,6 +138,69 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-17 — Official vector Alpine Mountain favicon
+
+- **Changed:**
+  - `public/favicon.svg` — replaced the Vite scaffold placeholder (the purple lightning
+    mark) with the official 64×64 vector brand mark: a rounded cobalt-blue square
+    (`#2563eb`, matching the header logo tile) holding white alpine peaks. After a first
+    iteration carried the header glyph's semi-transparent fill, the mark was reworked
+    (same file, same request) into a **pure line drawing**: no fill at all, just a
+    4.5-unit rounded white stroke tracing a two-peak skyline. The filled silhouette read as
+    a solid white mass at tab size; the line-only drawing stays legible and unambiguous
+    at 16 px.
+  - `index.html` — one inserted `<link rel="icon" type="image/svg+xml" href="./favicon.svg">`
+    immediately after `<title>`, with the relative path kept consistent with `base: './'`
+    (no other markup, font link or script tag touched).
+- **Verified:**
+  - `public/favicon.svg` exists (549 bytes) and renders as the blue rounded square with a
+    white, fill-free line-drawn two-peak skyline — rasterised through headless Edge at 16,
+    32 and 64 px (16 px and 32 px magnified with nearest-neighbour scaling) and inspected
+    visually; the mountain silhouette stays readable at tab size, with no solid white mass.
+  - `npm run lint` → ✅ exit 0, no output.
+  - `npm run build` → ✅ exit 0; `vite v8.3.4`, 1921 modules, `dist/index.html` 0.91 kB
+    (gzip 0.51 kB), `dist/assets/index-*.css` 23.91 kB (gzip 5.50 kB),
+    `dist/assets/index-*.js` 243.61 kB (gzip 75.37 kB). `dist/favicon.svg` is present and
+    `dist/index.html` carries the icon link with the relative `./favicon.svg` href
+    unchanged.
+  - Docs-candidate guard (`AGENTS.md` §4.7): this entry names no utility class tokens; the
+    CSS asset size and hash are identical to the previous session's 23.91 kB build.
+- **Debt touched:** TD-07 partially — `public/favicon.svg` is no longer a dead scaffold asset;
+  `public/icons.svg` remains unreferenced.
+- **Blocked / needs decision:** none.
+
+### 2026-10-17 — Corridor logo badges harmonised to identical fixed "twin" dimensions
+
+- **Changed:** `src/App.jsx` — four class-attribute edits only, no markup restructuring, no logic touched.
+  - Desktop `<thead>` badges (both corridors): the wrapper div now has a fixed 56×30 px box, with
+    the previous white-background, padding, rounded-corner and shadow utilities retained; the
+    image element switched from height-driven sizing to contained max-height/max-width sizing.
+  - Mobile card badges (both corridors): the wrapper div now has a fixed 48×24 px box, with half
+    the previous padding plus the hairline border and soft shadow retained; the image element
+    uses the same contained sizing.
+  - Effect: the landscape SFTRF emblem and the near-square TMB-GEIE emblem now sit in
+    pixel-identical white tiles, so the two columns read as symmetrical twins instead of
+    boxes sized by each image's own aspect ratio.
+- **Verified:**
+  - `public/logos/sftrf.png` (964×617) and `public/logos/tmb.png` (400×502) both present.
+  - `npm run lint` → ✅ exit 0, no output.
+  - `npm run build` → ✅ exit 0; `vite v8.3.4`, 1921 modules, `dist/index.html` 0.79 kB,
+    `dist/assets/index-*.css` 23.91 kB (gzip 5.50 kB), `dist/assets/index-*.js` 243.61 kB
+    (gzip 75.37 kB). The half-step spacing utility used for the desktop row resolves to exactly
+    30 px under Tailwind v4's dynamic spacing, which the measurement below confirms.
+  - Browser measurement via headless Chrome + CDP against `npm run preview`: every desktop
+    badge measured 56×30 px (SFTRF 1 instance, TMB 1 instance) and every mobile badge measured
+    48×24 px (30 instances each, one per day and corridor). Both images load (`complete: true`)
+    and fill their inner area correctly — desktop SFTRF 34.36×21.98 px and TMB 17.52×21.97 px
+    inside the same 48×22 px content box; mobile SFTRF 28.11×17.98 px and TMB 14.33×17.97 px
+    inside the same inner box. Document width is 1369 px at a 1384 px viewport and 390 px at a
+    390 px mobile viewport → no horizontal overflow from the fixed-width badges.
+  - Docs-candidate guard (AGENTS §4.7): rebuilt with and without this entry present in
+    `PROGRESS.md` → identical CSS output (`index-CnBEFp4F.css`, 23.91 kB) both times, so the
+    new prose contributes no utility class names to the scanned bundle.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none.
+
 ### 2026-10-17 — Official operator logos in the desktop headers and the mobile corridor blocks
 
 - **Changed:**
@@ -150,10 +213,12 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
     `dist/logos/` and the existing relative `base: './'` resolves them on GitHub Pages too.
   - `src/App.jsx` — two surgical edits, no restructuring:
     - desktop `<thead>`: each corridor `<th>` now wraps a white padded badge holding the
-      emblem (`h-5`, `sm:h-6`, auto width, contained) next to the existing label text. All
-      pre-existing `sticky` / width / rounded classes on the `<th>` were left untouched.
+      emblem (a compact, contained height-driven size) next to the existing label text. All
+      pre-existing sticky-positioning, width and corner-rounding utilities on the `<th>` were
+      left untouched.
     - mobile cards: each corridor block's title line is now a flex row with the same badge
-      (compact `h-5`) beside the label, replacing the former bare label `<div>`.
+      (a compact, contained height-driven size) beside the label, replacing the former bare
+      label `<div>`.
   - `README.md` — architecture diagram notes the `public/logos/` emblems and their relative
     reference.
 - **Verified:**
@@ -165,7 +230,7 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
   - Browser check via headless Chrome against `npm run preview` (CDP-driven): with
     **Tutti i Valichi** both headers carry their emblem (Fréjus badge 37×24 px, Monte Bianco
     19×24 px, `img.complete === true`, no document overflow); **Solo Fréjus** → one header,
-    one badge, `rounded-tr-xl` corner intact, 2 columns; **Solo Monte Bianco** → mirrors it.
+    one badge, top-right corner rounding intact, 2 columns; **Solo Monte Bianco** → mirrors it.
     At a 390 px mobile viewport there is **zero** horizontal overflow in either filtered
     state and every visible emblem renders at 20 px height (SFTRF 31×20, TMB 16×20).
 - **Debt touched:** none.
