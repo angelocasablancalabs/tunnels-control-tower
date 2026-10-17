@@ -17,7 +17,7 @@ It answers one operational question for a refrigerated 5-axle semi-trailer: **wh
 - **Full-text search** — across titles, details, micro-stops, dates and weekday names.
 - **Responsive layout** — continuous table on desktop, stacked cards on mobile.
 - **Status taxonomy** — `REGOLARE` · `RESTRIZIONE` · `BLOCCO_TOTALE` rendered as colour-coded badges.
-- **Official source links** — SFTRF, SITAF, TMB-GEIE, ATMB, SAV S.p.A., Bison Futé.
+- **Official source links** — SFTRF, SITAF, APRR, TMB-GEIE, ATMB, RAV S.p.A., SAV S.p.A., CCISS, Bison Futé.
 
 ## Tech Stack
 
@@ -170,10 +170,13 @@ All traffic information is derived from official operator publications. This pro
 | --- | --- | --- |
 | SFTRF | Fréjus / A43 | <https://www.sftrf.fr> |
 | SITAF | T4 / A32 | <https://www.sitaf.it> |
+| APRR | A43 (France) | <https://www.aprr.fr> |
 | TMB-GEIE | Mont Blanc | <https://www.tunnelmb.net/it-IT/interruzioni-e-previsioni> |
 | ATMB | A40 / RN205 | <https://www.atmb.com> |
-| SAV S.p.A. | A5 | <https://www.sav-a5.it> |
-| Bison Futé | France (national) | <https://www.bison-fute.gouv.fr> |
+| RAV S.p.A. | A5 (Aosta - Mont Blanc) | <https://www.ravspa.it> |
+| SAV S.p.A. | A5 (Quincinetto - Aosta) | <https://www.sav-a5.it> |
+| CCISS | Italy (national emergency) | <https://www.cciss.it> |
+| Bison Futé | France (national emergency) | <https://www.bison-fute.gouv.fr> |
 
 ## License
 

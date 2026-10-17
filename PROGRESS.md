@@ -138,6 +138,51 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-17 — AI-synthesis disclaimer tooltip on the header subtitle
+
+- **Changed:** `src/App.jsx` only — two surgical edits.
+  - Import list from `lucide-react` gained the `Info` icon; no other import touched.
+  - Header subtitle mark-up wrapped in a wrapping flex row and followed by a relative
+    inline-flex icon group holding a `button type="button"` (with an Italian
+    `aria-label` describing the data source) plus a hover/focus-revealed tooltip panel.
+    The panel sits below the icon, is hidden by default and shown on hover and on
+    focus-within (so keyboard focus and mobile tap both work), carries a high stacking
+    layer and non-interactive pointer events, and includes the small arrow element
+    pointing back up at the icon.
+    Copy is the exact two-sentence Italian disclaimer about automatic AI research and
+    synthesis from official web sources, with the instruction to always verify on
+    official channels. No literal utility-class names are recorded here (`AGENTS.md` §4.7).
+  - No business logic touched: `detectNightClosure`, `getDaySegments`, `norm`,
+    `formatDateIT`, `getCorridorOfficialSource`, filtering and the data contract are unchanged.
+- **Verified:** `npm run lint` → **exit 0, zero problems**; `npm run build` → **exit 0**,
+  `vite v8.3.4`, 1921 modules, JS 242.14 kB (gzip 75.23 kB) / CSS 22.93 kB (gzip 5.38 kB) in 562 ms.
+  No test runner exists, so no test claim is made.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none. Browser hover/focus behaviour was not exercised through an
+  automated browser session; it is verified structurally (CSS-only hover/focus-within reveal) and
+  the build/lint gates are green.
+
+### 2026-10-17 — Monitored sources synchronised to the pipeline: 9 official operators/emergency centres
+
+- **Changed:**
+  - `src/App.jsx` (footer) — the "Fonti Ufficiali Monitorate" list now carries all **9** sources the
+    data engine queries, adding **APRR (A43)**, **RAV S.p.A. (A5 Aosta-TMB)** and
+    **CCISS Viaggiare Informati**. SAV's label is now explicit about its segment
+    (A5 Quincinetto-Aosta). Every entry keeps `target="_blank"`, `rel="noreferrer"` and the external-link icon.
+  - `src/App.jsx` (`getCorridorOfficialSource`) — two new deterministic mappings, consistent with the
+    existing "corridor + keyword → operator portal, never a model-generated URL" rule: Fréjus text
+    mentioning `aprr` resolves to `https://www.aprr.fr/`, Mont Blanc text mentioning `rav` resolves to
+    `https://www.ravspa.it/`. Both are checked **before** the less specific A32/SITAF and A5/SAV
+    branches so an operator named in the text is not mis-attributed; the `rav` test uses a leading
+    word boundary to avoid matching the substring inside unrelated Italian words. No other branch changed.
+  - `README.md` — Data Sources table expanded from 6 to the same 9 rows (with corridor/scope column),
+    and the "Official source links" feature bullet lists the full set. No literal utility-class tokens
+    were added to prose (`AGENTS.md` §4.7).
+- **Verified:** `npm run lint` → **exit 0, zero problems**; `npm run build` → **exit 0**, `vite v8.3.4`,
+  1921 modules, JS 240.95 kB (gzip 74.88 kB) / CSS 21.85 kB (gzip 5.21 kB) in 586 ms.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none.
+
 ### 2026-10-17 — CI/CD: 5×/day traffic ingestion + automated GitHub Pages deploy
 
 - **Changed:**

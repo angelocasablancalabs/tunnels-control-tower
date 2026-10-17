@@ -6,7 +6,8 @@ import {
   ExternalLink, 
   Calendar,
   Search,
-  RefreshCw
+  RefreshCw,
+  Info
 } from 'lucide-react';
 
 const formatDateIT = (isoDate) => {
@@ -42,6 +43,9 @@ const getCorridorOfficialSource = (corridorKey, corridorData) => {
   const text = norm(`${corridorData.title} ${corridorData.details}`);
 
   if (corridorKey === 'frejus') {
+    if (text.includes('aprr')) {
+      return { name: 'APRR', url: 'https://www.aprr.fr/' };
+    }
     if (text.includes('a32') || text.includes('sitaf') || text.includes('susa') || text.includes('oulx') || text.includes('bussoleno')) {
       return { name: 'SITAF', url: 'https://www.sitaf.it/' };
     }
@@ -51,6 +55,9 @@ const getCorridorOfficialSource = (corridorKey, corridorData) => {
   if (corridorKey === 'monte_bianco') {
     if (text.includes('a40') || text.includes('atmb') || text.includes('vuache') || text.includes('egratz') || text.includes('chavants')) {
       return { name: 'ATMB', url: 'https://www.atmb.com/' };
+    }
+    if (/\brav/.test(text)) {
+      return { name: 'RAV S.p.A.', url: 'https://www.ravspa.it/' };
     }
     if (text.includes('a5') || text.includes('sav') || text.includes('arnad')) {
       return { name: 'SAV A5', url: 'https://www.sav-a5.it/' };
@@ -390,9 +397,26 @@ export default function App() {
               <h1 className="text-lg sm:text-xl font-extrabold tracking-tight">
                 TUNNELS CONTROL TOWER
               </h1>
-              <p className="text-xs text-slate-400 font-medium">
-                Monitoraggio Valichi Transalpini &bull; Focus Veicoli Pesanti 44t (escluso ADR e convogli eccezionali)
-              </p>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <p className="text-xs text-slate-400 font-medium">
+                  Monitoraggio Valichi Transalpini &bull; Focus Veicoli Pesanti 44t (escluso ADR e convogli eccezionali)
+                </p>
+                <div className="relative inline-flex items-center group">
+                  <button
+                    type="button"
+                    aria-label="Informazioni sulla fonte dei dati"
+                    className="text-slate-400 hover:text-slate-200 focus:outline-none focus:text-blue-400 transition-colors"
+                  >
+                    <Info className="w-3.5 h-3.5" />
+                  </button>
+                  {/* Tooltip a comparsa */}
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 hidden group-hover:block group-focus-within:block w-72 p-2.5 bg-slate-800 text-slate-200 text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 z-50 pointer-events-none">
+                    Le informazioni sono ricercate e sintetizzate automaticamente tramite intelligenza artificiale da fonti web ufficiali. Possono verificarsi imprecisioni od omissioni: verificare sempre sui canali ufficiali.
+                    {/* Triangolino freccia superiore */}
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-slate-700" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-3 text-xs bg-slate-800 px-3 py-2 rounded-lg border border-slate-700 self-start sm:self-auto">
@@ -593,14 +617,23 @@ export default function App() {
             <a href="https://www.sitaf.it" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
               SITAF (T4/A32) <ExternalLink className="w-3 h-3" />
             </a>
+            <a href="https://www.aprr.fr" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
+              APRR (A43) <ExternalLink className="w-3 h-3" />
+            </a>
             <a href="https://www.tunnelmb.net/it-IT/interruzioni-e-previsioni" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
               TMB-GEIE (Monte Bianco) <ExternalLink className="w-3 h-3" />
             </a>
             <a href="https://www.atmb.com" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
               ATMB (A40/RN205) <ExternalLink className="w-3 h-3" />
             </a>
+            <a href="https://www.ravspa.it" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
+              RAV S.p.A. (A5 Aosta-TMB) <ExternalLink className="w-3 h-3" />
+            </a>
             <a href="https://www.sav-a5.it" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
-              SAV S.p.A. (A5) <ExternalLink className="w-3 h-3" />
+              SAV S.p.A. (A5 Quincinetto-Aosta) <ExternalLink className="w-3 h-3" />
+            </a>
+            <a href="https://www.cciss.it" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
+              CCISS Viaggiare Informati <ExternalLink className="w-3 h-3" />
             </a>
             <a href="https://www.bison-fute.gouv.fr" target="_blank" rel="noreferrer" className="hover:text-blue-600 flex items-center gap-1">
               Bison Futé <ExternalLink className="w-3 h-3" />
