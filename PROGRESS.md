@@ -138,6 +138,38 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-17 — Rome-time gate (dual CET/CEST cron pairs) + zero-cost deploy on `git push`
+
+- **Changed:** `.github/workflows/deploy.yml` (replaced) — two operational fixes.
+  - **Year-round Rome slot precision:** each of the 5 Italian dispatch slots now has a
+    dual UTC cron pair (`30 4`/`30 5`, `0 9`/`0 10`, `30 12`/`30 13`, `30 15`/`30 16`,
+    `0 19`/`0 20`). A new first step, *Verify Rome Time Window*, converts the runner clock
+    with `TZ=Europe/Rome` and only the pair member whose Rome hour is 06/11/14/17/21 is
+    allowed through. Verified by simulation: exactly 5 unique accepted slots in both
+    January (CET) and July (CEST), no duplicates and no misses.
+  - **Zero-cost deploys on push:** the workflow now also triggers on `push` to `main`,
+    ignoring `public/traffic_data.json`, `README.md`, `PROGRESS.md` and `.gitignore` (so the
+    bot's own auto-update commit cannot loop). On push, the Python/Gemini steps are skipped
+    and only `npm ci` → lint → build → Pages deploy run.
+  - **Deviation from the supplied spec (deliberate, behavioural fix):** the requested gate
+    used a bare `exit 0`, which only ends the *step* — every later step would still have
+    run and Gemini would have been invoked on off-window ticks, contradicting the acceptance
+    criterion. The gate now writes `proceed=true|false` to `$GITHUB_OUTPUT` and every
+    downstream step (including the Node build/deploy chain) is guarded by
+    `if: steps.time-gate.outputs.proceed == 'true'`; the Python steps additionally keep
+    `github.event_name != 'push'`. Off-window scheduled runs therefore finish in seconds
+    with all work skipped. `node-version` is kept quoted (`'24'`) for setup-node input
+    safety; action majors unchanged.
+- **Verified:** `actionlint` v1.7.12 (downloaded release binary) on `deploy.yml` → **exit 0,
+  zero findings** (syntax, expression and `$GITHUB_OUTPUT`/`if:` checks). `npm run lint` →
+  **exit 0, zero problems**; `npm run build` → **exit 0**, `vite v8.3.4`, 1921 modules,
+  JS 242.14 kB (gzip 75.23 kB) / CSS 22.93 kB (gzip 5.38 kB) in 578 ms. `npm ci --dry-run`
+  → lockfile in sync. No test runner exists, so no test claim is made.
+- **Debt touched:** none.
+- **Blocked / needs decision:** end-to-end GitHub Actions behaviour (push run, manual
+  dispatch, live Pages refresh) is verified against the GitHub API after the push; local
+  tooling cannot execute the runner itself.
+
 ### 2026-10-17 — AI-synthesis disclaimer tooltip on the header subtitle
 
 - **Changed:** `src/App.jsx` only — two surgical edits.

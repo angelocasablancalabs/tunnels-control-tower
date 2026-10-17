@@ -9,19 +9,35 @@ name: Scheduled Traffic Update & Pages Deploy
 
 on:
   schedule:
-    # 5 runs daily (UTC cron times corresponding to CET/CEST dispatch windows):
-    # NOTE: crons are fixed UTC while Italy switches between CET (UTC+1) and
-    # CEST (UTC+2), so during CEST every run fires one hour later locally.
-    # 05:30 UTC -> 06:30 IT in winter, 07:30 IT in summer
+    # Dual UTC pairs covering both CEST (summer, UTC+2) and CET (winter, UTC+1).
+    # GitHub cron is always UTC, so each Italian slot is scheduled twice; the
+    # 'Verify Rome Time Window' gate keeps exactly the pair member whose Rome
+    # hour matches the target and drops the other one in seconds.
+    # Slot 1: ~06:30 IT (04:30 UTC summer / 05:30 UTC winter)
+    - cron: '30 4 * * *'
     - cron: '30 5 * * *'
-    # 10:00 UTC -> 11:00 IT in winter, 12:00 IT in summer
+    # Slot 2: ~11:00 IT (09:00 UTC summer / 10:00 UTC winter)
+    - cron: '0 9 * * *'
     - cron: '0 10 * * *'
-    # 13:30 UTC -> 14:30 IT in winter, 15:30 IT in summer
+    # Slot 3: ~14:30 IT (12:30 UTC summer / 13:30 UTC winter)
+    - cron: '30 12 * * *'
     - cron: '30 13 * * *'
-    # 16:30 UTC -> 17:30 IT in winter, 18:30 IT in summer
+    # Slot 4: ~17:30 IT (15:30 UTC summer / 16:30 UTC winter)
+    - cron: '30 15 * * *'
     - cron: '30 16 * * *'
-    # 20:00 UTC -> 21:00 IT in winter, 22:00 IT in summer
+    # Slot 5: ~21:00 IT (19:00 UTC summer / 20:00 UTC winter)
+    - cron: '0 19 * * *'
     - cron: '0 20 * * *'
+  push:
+    branches: [ main ]
+    # A frontend push must rebuild Pages immediately without spending Gemini
+    # quota; only data/doc side-effects of the pipeline are ignored here so the
+    # bot's own "Auto-update traffic data" commit cannot retrigger a deploy.
+    paths-ignore:
+      - 'public/traffic_data.json'
+      - 'README.md'
+      - 'PROGRESS.md'
+      - '.gitignore'
   workflow_dispatch: # Allows manual trigger button in GitHub Actions UI
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages and git commit push
@@ -45,18 +61,46 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
+      # 1. Rome Timezone Gate: sets `proceed` so scheduled runs continue only on
+      #    the target Rome hours (06, 11, 14, 17, 21). The other member of each
+      #    UTC dual pair skips every remaining step and finishes in seconds.
+      - name: Verify Rome Time Window
+        id: time-gate
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            ROME_HOUR=$(TZ=Europe/Rome date +%H)
+            echo "Current Rome local hour: $ROME_HOUR"
+            case "$ROME_HOUR" in
+              06|11|14|17|21)
+                echo "Matched target Italian dispatch window ($ROME_HOUR:xx). Proceeding."
+                echo "proceed=true" >> "$GITHUB_OUTPUT"
+                ;;
+              *)
+                echo "Off-season UTC dual-pair tick (Rome hour: $ROME_HOUR). Skipping run cleanly."
+                echo "proceed=false" >> "$GITHUB_OUTPUT"
+                ;;
+            esac
+          else
+            echo "Triggered via ${{ github.event_name }}, bypassing time gate."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 2. Python environment & Gemini data ingestion (SKIPPED on git push to save API calls)
       - name: Set up Python
+        if: steps.time-gate.outputs.proceed == 'true' && github.event_name != 'push'
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: 'pip'
 
       - name: Install Python Dependencies
+        if: steps.time-gate.outputs.proceed == 'true' && github.event_name != 'push'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run Traffic Ingestion Script
+        if: steps.time-gate.outputs.proceed == 'true' && github.event_name != 'push'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # fetch_traffic.py derives today's date and "last_updated" from
@@ -67,6 +111,7 @@ jobs:
           python fetch_traffic.py
 
       - name: Commit Fresh Traffic Data (if changed)
+        if: steps.time-gate.outputs.proceed == 'true' && github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -74,28 +119,36 @@ jobs:
           git diff --staged --quiet || git commit -m "Auto-update traffic data [skip ci]"
           git push || echo "No changes to commit or push"
 
+      # 3. Node.js Frontend Build & GitHub Pages Deploy (runs on push, manual
+      #    dispatch and the accepted scheduled windows)
       - name: Set up Node.js
+        if: steps.time-gate.outputs.proceed == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: 'npm'
 
       - name: Install Frontend Dependencies
+        if: steps.time-gate.outputs.proceed == 'true'
         run: npm ci
 
       - name: Lint and Build Production SPA
+        if: steps.time-gate.outputs.proceed == 'true'
         run: |
           npm run lint
           npm run build
 
       - name: Setup Pages
+        if: steps.time-gate.outputs.proceed == 'true'
         uses: actions/configure-pages@v6
 
       - name: Upload Artifact
+        if: steps.time-gate.outputs.proceed == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
+        if: steps.time-gate.outputs.proceed == 'true'
         uses: actions/deploy-pages@v5
