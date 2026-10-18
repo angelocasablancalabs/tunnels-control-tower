@@ -486,7 +486,7 @@ export default function App() {
           <table className="w-full text-left border-collapse table-fixed">
             <thead>
               <tr className="bg-slate-900 text-white text-xs uppercase tracking-wider font-bold border-b border-slate-300">
-                <th className="sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 w-44 rounded-tl-xl border-b border-slate-300">Data / Giorno</th>
+                <th className="sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 w-44 rounded-tl-xl border-b border-slate-300">Data</th>
                 {(filterAxis === 'ALL' || filterAxis === 'FREJUS') && (
                   <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-700 border-b border-slate-300 ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''} ${filterAxis === 'FREJUS' ? 'rounded-tr-xl' : ''}`}>
                     <div className="flex items-center gap-2.5">

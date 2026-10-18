@@ -138,6 +138,28 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-18 — Intestazione della prima colonna desktop semplificata in "Data"
+
+- **Changed:**
+  - `src/App.jsx` — sostituzione di **una sola stringa** nell'intestazione della prima
+    colonna della vista desktop: l'etichetta ridondante "Data / Giorno" diventa
+    semplicemente "Data". Nessuna classe, larghezza o posizione ancorata è stata toccata;
+    casing e struttura invariati.
+  - Invariati: tutte le classi dell'elemento di intestazione (incluse larghezza fissa e
+    ancoraggio in alto), le intestazioni dei due corridoi, `TimelineRibbon`, la logica di
+    business e le restanti stringhe italiane. Nessun token di classe è stato trascritto in
+    questa documentazione (`AGENTS.md` §4.7).
+- **Verified:**
+  - `npm run lint` → ✅ **exit 0**, nessun output (zero errori, zero warning).
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-yPGJ-QiY.css` 24.20 kB (gzip 5.54 kB),
+    `dist/assets/index-DcSRazXG.js` 243.76 kB (gzip 75.47 kB), build in 215 ms.
+  - Il CSS prodotto è identico per hash e dimensione all'ultimo build
+    (`index-yPGJ-QiY.css`, 24.20 kB): la modifica è di solo testo, nessuna classe è cambiata.
+  - Nessun test runner esiste nel progetto: non viene dichiarato alcun esito di test.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none; modifica locale non committata.
+
 ### 2026-10-18 — Demarcazione verticale delle colonne desktop più netta
 
 - **Changed:**
