@@ -138,6 +138,36 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-18 — Demarcazione verticale delle colonne desktop più netta
+
+- **Changed:**
+  - `src/App.jsx` — quattro modifiche di sola classe, nessuna ristrutturazione:
+    intestazione Fréjus, il bordo verticale sinistro passa da una tonalità scura quasi
+    invisibile sul fondo dell'intestazione a una tonalità media più leggibile;
+    intestazione Monte Bianco, stessa tonalità media ma con spessore doppio, così la
+    cucitura tra i due corridoi risulta rinforzata; cella corpo Fréjus, il bordo verticale
+    sinistro passa a una tonalità chiara più marcata, visibile sia sulle righe bianche sia
+    su quelle azzurre; cella corpo Monte Bianco, stessa tonalità chiara con spessore doppio,
+    allineata alla cucitura rinforzata dell'intestazione. La sequenza dei bordi così
+    definita è continua dall'intestazione al corpo della tabella.
+  - Invariati: struttura della tabella e layout a larghezza fissa, padding, intestazioni
+    ancorate in alto, divisori orizzontali tra le righe, `TimelineRibbon`, logica di
+    business e stringhe italiane. Nessun token di classe è stato trascritto in questa
+    documentazione (`AGENTS.md` §4.7).
+- **Verified:**
+  - `npm run lint` → ✅ **exit 0**, nessun output (zero errori, zero warning).
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-yPGJ-QiY.css` 24.20 kB (gzip 5.54 kB),
+    `dist/assets/index-xEZJRM8X.js` 243.77 kB (gzip 75.48 kB), build in 203 ms.
+  - Rebuild dopo l'aggiunta di questa entry: hash e dimensione del CSS **identici**
+    (`index-yPGJ-QiY.css`, 24.20 kB), quindi nessun token di classe è trapelato nei docs.
+  - Il diff verificato contiene esclusivamente le quattro sostituzioni di classe; nessuna
+    riga dei divisori orizzontali, delle timeline o delle intestazioni ancorate è stata
+    toccata.
+  - Nessun test runner esiste nel progetto: non viene dichiarato alcun esito di test.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none; modifica locale non committata.
+
 ### 2026-10-18 — Placeholder di ricerca generico (date)
 
 - **Changed:**

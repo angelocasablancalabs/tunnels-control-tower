@@ -488,7 +488,7 @@ export default function App() {
               <tr className="bg-slate-900 text-white text-xs uppercase tracking-wider font-bold border-b border-slate-300">
                 <th className="sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 w-44 rounded-tl-xl border-b border-slate-300">Data / Giorno</th>
                 {(filterAxis === 'ALL' || filterAxis === 'FREJUS') && (
-                  <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-800 border-b border-slate-300 ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''} ${filterAxis === 'FREJUS' ? 'rounded-tr-xl' : ''}`}>
+                  <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-700 border-b border-slate-300 ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''} ${filterAxis === 'FREJUS' ? 'rounded-tr-xl' : ''}`}>
                     <div className="flex items-center gap-2.5">
                       <div className="w-14 h-7.5 bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
                         <img
@@ -504,7 +504,7 @@ export default function App() {
                   </th>
                 )}
                 {(filterAxis === 'ALL' || filterAxis === 'MONTE_BIANCO') && (
-                  <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l border-slate-800 border-b border-slate-300 rounded-tr-xl ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''}`}>
+                  <th className={`sticky top-[72px] z-20 bg-slate-900 shadow-sm py-3 px-4 border-l-2 border-slate-700 border-b border-slate-300 rounded-tr-xl ${filterAxis === 'ALL' ? 'w-[calc((100%-11rem)/2)]' : ''}`}>
                     <div className="flex items-center gap-2.5">
                       <div className="w-14 h-7.5 bg-white p-1 rounded-md shadow-xs shrink-0 flex items-center justify-center">
                         <img
@@ -548,7 +548,7 @@ export default function App() {
 
                     {/* COLONNA FREJUS */}
                     {(filterAxis === 'ALL' || filterAxis === 'FREJUS') && (
-                      <td className="p-0 h-px border-l border-slate-100 align-top">
+                      <td className="p-0 h-px border-l border-slate-200 align-top">
                         <div className="flex h-full min-h-[110px] items-stretch">
                           <TimelineRibbon day={day} prevDay={prevDay} corridorKey="frejus" />
                           <div className="p-3.5 flex-1 min-w-0">
@@ -560,7 +560,7 @@ export default function App() {
 
                     {/* COLONNA MONTE BIANCO */}
                     {(filterAxis === 'ALL' || filterAxis === 'MONTE_BIANCO') && (
-                      <td className="p-0 h-px border-l border-slate-100 align-top">
+                      <td className="p-0 h-px border-l-2 border-slate-200 align-top">
                         <div className="flex h-full min-h-[110px] items-stretch">
                           <TimelineRibbon day={day} prevDay={prevDay} corridorKey="monte_bianco" />
                           <div className="p-3.5 flex-1 min-w-0">
