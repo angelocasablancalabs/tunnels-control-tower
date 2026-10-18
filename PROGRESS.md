@@ -138,6 +138,52 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-18 — "Oggi" calcolato in fuso Roma + CI/CD a schedule fisso senza time-gate
+
+- **Changed:**
+  - `src/App.jsx` — tre modifiche chirurgiche, nessuna ristrutturazione:
+    (1) `todayRome` derivato nel componente con `Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' })`,
+    così la data odierna è quella italiana del browser e non il flag statico del JSON;
+    (2) filtro finestra mobile su `data.days` prima della ricerca: i giorni con
+    `day.date` precedente a `todayRome` vengono scartati, mentre i giorni senza data
+    restano visibili (guardia difensiva sul contratto generato dal modello);
+    (3) `const isToday = day.is_today` sostituito da `day.date === todayRome` in
+    **entrambe** le viste (`filteredDays.map(...)` desktop e mobile). Logica
+    load-bearing intatta: `detectNightClosure`, `getDaySegments`, `norm`,
+    `formatDateIT`, `TimelineRibbon` e `CorridorContent` non sono stati toccati;
+    nessuna dipendenza aggiunta, nessun `import React` reintrodotto, stringhe UI in italiano.
+  - `.github/workflows/deploy.yml` — sostituite le 5 coppie cron UTC "dual" (10 tick) con
+    **5 tick fissi** a minuti di bassa congestione (`:15` / `:45`); eliminato lo step
+    `Verify Rome Time Window` (`id: time-gate`) e rimosso ogni guard
+    `steps.time-gate.outputs.proceed == 'true'`. Gli step Python (setup, dipendenze,
+    ingestion, commit dati) restano condizionati a `if: github.event_name != 'push'`;
+    gli step Node/build/deploy ora girano su ogni trigger. Invariati: i pin delle action
+    (checkout v7, setup-python v7, setup-node v7, configure-pages v6,
+    upload-pages-artifact v5, deploy-pages v5), `TZ: Europe/Rome` sull'ingestion,
+    `permissions` (contents/pages/id-token write), `concurrency` e `environment`.
+    Commenti di numerazione degli step riallineati (1 = Python, 2 = Node/deploy).
+- **Verified:**
+  - `npm run lint` → ✅ **exit 0**, nessun output (zero warning, zero errori).
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-CnBEFp4F.css` 23.91 kB (gzip 5.50 kB) —
+    **identico** alla sessione precedente, quindi nessun token di classe è trapelato dai docs
+    (`AGENTS.md` §4.7) —, `dist/assets/index-QC1UzVys.js` 243.72 kB (gzip 75.45 kB),
+    +0.11 kB dovuti unicamente alla nuova logica.
+  - YAML: `ruby -ryaml -e 'YAML.load_file(...)'` → **PARSE OK**; struttura riletta:
+    `schedule` = 5 cron, `push` con le 4 `paths-ignore` originali, `workflow_dispatch` presente;
+    11 step, con `if` valorizzato solo sui 4 step Python. `grep -rn "time-gate|proceed" .github/`
+    → **nessun residuo**. `actionlint` non è installato e non è stato aggiunto nulla al repo.
+  - Comportamento dati verificato sui dati reali: `todayRome` = `2026-10-18` (formato
+    `YYYY-MM-DD`, 10 caratteri); il JSON statico ha 31 giorni e il suo `is_today` è ancora
+    fermo su `2026-10-17` (il bug descritto). Con il nuovo filtro restano 30 giorni
+    (2026-10-18 → 2026-11-16) e la prima riga risulta `Oggi` — prima il flag statico avrebbe
+    etichettato ieri.
+  - Nessun test runner esiste nel progetto: non viene dichiarato alcun esito di test.
+- **Debt touched:** TD-14 resta chiuso (lint pulito); nessun'altra voce dell'inventario modificata.
+- **Blocked / needs decision:** il push su `main` e la verifica di un `workflow_dispatch`
+  reale via `gh`/UI richiedono l'autorizzazione dell'owner (`AGENTS.md` §5 ASK FIRST:
+  toccare il remote). Le due modifiche sono locali e non committate in questa sessione.
+
 ### 2026-10-17 — Official vector Alpine Mountain favicon
 
 - **Changed:**

@@ -360,7 +360,13 @@ export default function App() {
     );
   }
 
+  // "Oggi" calcolato lato browser in fuso orario di Roma: il JSON è un artefatto
+  // statico generato offline, quindi day.is_today può essere obsoleto dopo la mezzanotte.
+  const todayRome = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(new Date());
+
   const filteredDays = data.days.filter((day) => {
+    // Finestra mobile: si scartano i giorni passati (le date mancanti restano visibili).
+    if (day.date && day.date < todayRome) return false;
     if (!searchTerm.trim()) return true;
     const term = searchTerm.trim().toLowerCase();
     const termWithSlash = term.replace(/[.\- ]/g, '/');
@@ -517,7 +523,7 @@ export default function App() {
             </thead>
             <tbody className="divide-y divide-slate-300 text-xs font-medium">
               {filteredDays.map((day, idx) => {
-                const isToday = day.is_today;
+                const isToday = day.date === todayRome;
                 const prevDay = idx > 0 ? filteredDays[idx - 1] : null;
 
                 return (
@@ -573,7 +579,7 @@ export default function App() {
         {/* 2. VISTA MOBILE */}
         <div className="md:hidden space-y-3">
           {filteredDays.map((day, idx) => {
-            const isToday = day.is_today;
+            const isToday = day.date === todayRome;
             const prevDay = idx > 0 ? filteredDays[idx - 1] : null;
 
             return (
