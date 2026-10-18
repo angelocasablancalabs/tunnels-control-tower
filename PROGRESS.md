@@ -138,6 +138,44 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-18 — Placeholder di ricerca generico (date)
+
+- **Changed:**
+  - `src/App.jsx` — modifica di una sola riga: il `placeholder` dell'input di ricerca non
+    contiene più le date di esempio (`21/10`, `ottobre`), sostituite da un indicatore generico
+    di data. Nessuna modifica alla logica di filtro né al markup circostante; casing e classi
+    invariati.
+- **Verified:** `npm run lint` → ✅ exit 0, nessun output (zero errori, zero warning);
+  `npm run build` → ✅ exit 0, `vite v8.3.4`, 1921 moduli, JS 243.77 kB (gzip 75.47 kB) /
+  CSS 24.12 kB (gzip 5.54 kB) in 213 ms. Build rieseguita dopo questa modifica ai docs:
+  dimensioni e hash del CSS invariati.
+- **Debt touched:** none.
+- **Blocked / needs decision:** none.
+
+### 2026-10-18 — Badge "BLOCCO TOTALE" e titolo impilati su mobile
+
+- **Changed:**
+  - `src/App.jsx` — modifica chirurgica al solo contenitore del ramo `BLOCCO_TOTALE`
+    dentro `CorridorContent`: la riga badge + titolo in grassetto è ora impilata
+    verticalmente con allineamento iniziale sotto il breakpoint medio, e torna
+    orizzontale con allineamento centrato da quel breakpoint in su. Aggiunto un
+    interlinea più stretto al titolo e un margine inferiore leggermente maggiore al
+    contenitore. `Title` e `StatusBadge` invariati; nessuna stringa italiana toccata.
+    Intatti `TimelineRibbon`, `getDaySegments`, `detectNightClosure`, `norm`,
+    `formatDateIT`, `parseMicroStops` e ogni altra logica di render.
+- **Verified:**
+  - `npm run lint` → ✅ **exit 0**, nessun output (zero warning, zero errori).
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-BCPs_Uj_.css` 24.12 kB (gzip 5.54 kB),
+    `dist/assets/index-Bd66o51A.js` 243.78 kB (gzip 75.47 kB), build in 222 ms.
+    L'hash CSS è cambiato rispetto alla sessione precedente: atteso, perché le classi
+    responsive sono nuove nel sorgente (non nei documenti). Rebuild dopo la sola modifica
+    a questo file → hash e dimensione CSS **identici** (`index-BCPs_Uj_.css`, 24.12 kB),
+    quindi nessun token di classe è trapelato nei docs (`AGENTS.md` §4.7).
+  - Nessun test runner esiste nel progetto: non viene dichiarato alcun esito di test.
+- **Debt touched:** none.
+- **Blocked / needs decision:** nessuna; modifica locale non committata.
+
 ### 2026-10-18 — "Oggi" calcolato in fuso Roma + CI/CD a schedule fisso senza time-gate
 
 - **Changed:**

@@ -231,9 +231,9 @@ const CorridorContent = ({ corridor, corridorKey }) => {
 
   return (
     <>
-      <div className="flex items-center gap-2 mb-1">
+      <div className="flex flex-col md:flex-row md:items-center items-start gap-1 md:gap-2 mb-1.5">
         <StatusBadge status={corridor.status} />
-        {title && <span className="font-bold text-slate-900">{title}</span>}
+        {title && <span className="font-bold text-slate-900 leading-snug">{title}</span>}
       </div>
       {details && <p className="text-slate-600 leading-relaxed mb-1">{details}</p>}
       {microStops && (
@@ -473,7 +473,7 @@ export default function App() {
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Cerca Orelle, Charmaix, 21/10, ottobre..."
+              placeholder="Cerca Orelle, Charmaix, data..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
