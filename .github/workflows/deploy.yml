@@ -9,17 +9,22 @@ name: Scheduled Traffic Update & Pages Deploy
 
 on:
   schedule:
-    # 5 daily dispatches at off-peak minutes (:15 / :45) to avoid runner contention:
-    # ~06:15 CEST / 05:15 CET
+    # 5 daily dispatch slots with automatic recovery tick (+35 min) to eliminate dropped runs:
+    # Slot 1: ~06:15 CEST / 05:15 CET (recovery ~06:50 CEST / 05:50 CET)
     - cron: '15 4 * * *'
-    # ~10:45 CEST / 09:45 CET
+    - cron: '50 4 * * *'
+    # Slot 2: ~10:45 CEST / 09:45 CET (recovery ~11:20 CEST / 10:20 CET)
     - cron: '45 8 * * *'
-    # ~14:15 CEST / 13:15 CET
+    - cron: '20 9 * * *'
+    # Slot 3: ~14:15 CEST / 13:15 CET (recovery ~14:50 CEST / 13:50 CET)
     - cron: '15 12 * * *'
-    # ~17:45 CEST / 16:45 CET
+    - cron: '50 12 * * *'
+    # Slot 4: ~17:45 CEST / 16:45 CET (recovery ~18:20 CEST / 17:20 CET)
     - cron: '45 15 * * *'
-    # ~21:15 CEST / 20:15 CET
+    - cron: '20 16 * * *'
+    # Slot 5: ~21:15 CEST / 20:15 CET (recovery ~21:50 CEST / 20:50 CET)
     - cron: '15 19 * * *'
+    - cron: '50 19 * * *'
   push:
     branches: [ main ]
     # A frontend push must rebuild Pages immediately without spending Gemini
@@ -53,22 +58,57 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
-      # 1. Python environment & Gemini data ingestion (SKIPPED on git push to save API calls)
+      # 1. Freshness & Idempotency Gate (for scheduled runs)
+      #    Skips redundant recovery ticks if public/traffic_data.json was already
+      #    updated within the last 100 minutes. Push and workflow_dispatch always proceed.
+      - name: Check Update Freshness
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            PROCEED=$(python3 -c "
+import json, sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+try:
+    with open('public/traffic_data.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    last_str = data.get('last_updated', '')
+    last_dt = datetime.strptime(last_str, '%Y-%m-%d %H:%M').replace(tzinfo=ZoneInfo('Europe/Rome'))
+    now_dt = datetime.now(ZoneInfo('Europe/Rome'))
+    diff_min = (now_dt - last_dt).total_seconds() / 60
+    print(f'Last update: {last_str} Rome time ({diff_min:.1f} min ago)', file=sys.stderr)
+    if diff_min < 100:
+        print('false')
+    else:
+        print('true')
+except Exception as e:
+    print(f'Warning parsing last_updated: {e}', file=sys.stderr)
+    print('true')
+")
+            echo "proceed=$PROCEED" >> "$GITHUB_OUTPUT"
+            echo "Gate decision: proceed=$PROCEED"
+          else
+            echo "Triggered via ${{ github.event_name }}. Proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 2. Python environment & Gemini data ingestion (SKIPPED on git push to save API calls)
       - name: Set up Python
-        if: github.event_name != 'push'
+        if: steps.gate.outputs.proceed == 'true' && github.event_name != 'push'
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: 'pip'
 
       - name: Install Python Dependencies
-        if: github.event_name != 'push'
+        if: steps.gate.outputs.proceed == 'true' && github.event_name != 'push'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run Traffic Ingestion Script
-        if: github.event_name != 'push'
+        if: steps.gate.outputs.proceed == 'true' && github.event_name != 'push'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # fetch_traffic.py derives today's date and "last_updated" from
@@ -79,7 +119,7 @@ jobs:
           python fetch_traffic.py
 
       - name: Commit Fresh Traffic Data (if changed)
-        if: github.event_name != 'push'
+        if: steps.gate.outputs.proceed == 'true' && github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -87,30 +127,36 @@ jobs:
           git diff --staged --quiet || git commit -m "Auto-update traffic data [skip ci]"
           git push || echo "No changes to commit or push"
 
-      # 2. Node.js Frontend Build & GitHub Pages Deploy (runs on every trigger:
-      #    push, manual dispatch and all five scheduled ticks)
+      # 3. Node.js Frontend Build & GitHub Pages Deploy (runs on push, manual dispatch,
+      #    and scheduled runs when gate proceeds)
       - name: Set up Node.js
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: 'npm'
 
       - name: Install Frontend Dependencies
+        if: steps.gate.outputs.proceed == 'true'
         run: npm ci
 
       - name: Lint and Build Production SPA
+        if: steps.gate.outputs.proceed == 'true'
         run: |
           npm run lint
           npm run build
 
       - name: Setup Pages
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/configure-pages@v6
 
       - name: Upload Artifact
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/deploy-pages@v5

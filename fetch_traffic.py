@@ -2,6 +2,7 @@ import os
 import json
 import re
 import sys
+import time
 from datetime import datetime
 from dotenv import load_dotenv
 from google import genai
@@ -135,21 +136,41 @@ def run():
         temperature=0.1
     )
 
-    response = client.models.generate_content(
-        model='gemini-3.8-flash',
-        contents=prompt,
-        config=config
-    )
+    max_retries = 3
+    retry_delay = 10
+    data = None
 
-    raw_text = response.text.strip()
-    
-    # Pulizia sicura del JSON da eventuali marcatori markdown ```json ... ```
-    if "```" in raw_text:
-        match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", raw_text)
-        if match:
-            raw_text = match.group(1)
+    for attempt in range(1, max_retries + 1):
+        try:
+            print(f"📡 Chiamata Gemini 3.8 Flash (tentativo {attempt}/{max_retries})...")
+            response = client.models.generate_content(
+                model='gemini-3.8-flash',
+                contents=prompt,
+                config=config
+            )
 
-    data = json.loads(raw_text)
+            raw_text = response.text.strip() if response and response.text else ""
+            
+            # Pulizia sicura del JSON da eventuali marcatori markdown ```json ... ```
+            if "```" in raw_text:
+                match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", raw_text)
+                if match:
+                    raw_text = match.group(1)
+
+            parsed = json.loads(raw_text)
+            if "days" in parsed and len(parsed["days"]) > 0:
+                data = parsed
+                break
+            else:
+                raise ValueError("Risposta JSON priva della chiave 'days' o lista vuota")
+        except Exception as err:
+            print(f"⚠️ Tentativo {attempt} non riuscito: {err}")
+            if attempt < max_retries:
+                print(f"⏳ Attesa {retry_delay}s prima del nuovo tentativo...")
+                time.sleep(retry_delay)
+                retry_delay *= 2
+            else:
+                raise
 
     # Salviamo sia in public/ che nella root per sicurezza
     os.makedirs("public", exist_ok=True)

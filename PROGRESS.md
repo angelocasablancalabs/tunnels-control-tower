@@ -138,6 +138,26 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-19 — Soluzione A: Ridondanza automatica cron (recovery ticks), gate di freschezza e retry esponenziale
+
+- **Changed:**
+  - `.github/workflows/deploy.yml` — introdotta ridondanza per i 5 slot di dispatch giornalieri
+    con un recovery tick automatico (+35 min rispetto a ciascun tick primario: 10 cron totali);
+    aggiunto lo step 1 `Check Update Freshness` (`id: gate`) che verifica l'età di `traffic_data.json`
+    in fuso Roma e scarta i recovery tick ridondanti in pochi secondi se lo slot è già stato aggiornato
+    negli ultimi 100 minuti; condizionati i restanti step a `steps.gate.outputs.proceed == 'true'`.
+  - `fetch_traffic.py` — introdotto un loop di retry automatico (3 tentativi) con backoff esponenziale
+    (`10s`, `20s`) per la chiamata Gemini (`gemini-3.8-flash`) e la validazione del JSON, evitando
+    che disconnessioni di rete temporanee o limiti di rate limit facciano fallire l'aggiornamento.
+- **Verified:**
+  - `python -m py_compile fetch_traffic.py` → ✅ **exit 0**, sintassi Python corretta.
+  - `npm run lint` → ✅ **exit 0**, zero errori, zero warning.
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-yPGJ-QiY.css` 24.20 kB (gzip 5.54 kB),
+    `dist/assets/index-DcSRazXG.js` 243.76 kB (gzip 75.47 kB). CSS identico per dimensione e hash.
+- **Debt touched:** TD-03 mitigato parzialmente (retry e verifica presenza `days` prima del salvataggio).
+- **Blocked / needs decision:** modifiche salvate localmente nel worktree; push su `main` da confermare dall'utente (`AGENTS.md` §5 ASK FIRST).
+
 ### 2026-10-18 — Intestazione della prima colonna desktop semplificata in "Data"
 
 - **Changed:**
