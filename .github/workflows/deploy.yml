@@ -65,29 +65,7 @@ jobs:
         id: gate
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            PROCEED=$(python3 -c "
-import json, sys
-from datetime import datetime
-from zoneinfo import ZoneInfo
-
-try:
-    with open('public/traffic_data.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    last_str = data.get('last_updated', '')
-    last_dt = datetime.strptime(last_str, '%Y-%m-%d %H:%M').replace(tzinfo=ZoneInfo('Europe/Rome'))
-    now_dt = datetime.now(ZoneInfo('Europe/Rome'))
-    diff_min = (now_dt - last_dt).total_seconds() / 60
-    print(f'Last update: {last_str} Rome time ({diff_min:.1f} min ago)', file=sys.stderr)
-    if diff_min < 100:
-        print('false')
-    else:
-        print('true')
-except Exception as e:
-    print(f'Warning parsing last_updated: {e}', file=sys.stderr)
-    print('true')
-")
-            echo "proceed=$PROCEED" >> "$GITHUB_OUTPUT"
-            echo "Gate decision: proceed=$PROCEED"
+            python check_freshness.py
           else
             echo "Triggered via ${{ github.event_name }}. Proceeding."
             echo "proceed=true" >> "$GITHUB_OUTPUT"

@@ -141,16 +141,19 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 ### 2026-10-19 — Soluzione A: Ridondanza automatica cron (recovery ticks), gate di freschezza e retry esponenziale
 
 - **Changed:**
+  - `check_freshness.py` — nuovo script dedicato (libreria standard Python: `json`, `os`, `sys`, `datetime`,
+    `zoneinfo`) per verificare l'età di `traffic_data.json` e valorizzare il flag `proceed` in `$GITHUB_OUTPUT`.
   - `.github/workflows/deploy.yml` — introdotta ridondanza per i 5 slot di dispatch giornalieri
     con un recovery tick automatico (+35 min rispetto a ciascun tick primario: 10 cron totali);
-    aggiunto lo step 1 `Check Update Freshness` (`id: gate`) che verifica l'età di `traffic_data.json`
-    in fuso Roma e scarta i recovery tick ridondanti in pochi secondi se lo slot è già stato aggiornato
-    negli ultimi 100 minuti; condizionati i restanti step a `steps.gate.outputs.proceed == 'true'`.
+    lo step 1 `Check Update Freshness` (`id: gate`) invoca `python check_freshness.py`, evitando blocchi
+    multilinea complessi incorporati nel file YAML e garantendo il parse pulito della configurazione;
+    i restanti step sono condizionati a `steps.gate.outputs.proceed == 'true'`.
   - `fetch_traffic.py` — introdotto un loop di retry automatico (3 tentativi) con backoff esponenziale
     (`10s`, `20s`) per la chiamata Gemini (`gemini-3.8-flash`) e la validazione del JSON, evitando
     che disconnessioni di rete temporanee o limiti di rate limit facciano fallire l'aggiornamento.
 - **Verified:**
-  - `python -m py_compile fetch_traffic.py` → ✅ **exit 0**, sintassi Python corretta.
+  - `python check_freshness.py` → ✅ **exit 0**, calcolo età e parsing fuso Roma riusciti.
+  - `python -m py_compile check_freshness.py fetch_traffic.py` → ✅ **exit 0**, sintassi Python corretta.
   - `npm run lint` → ✅ **exit 0**, zero errori, zero warning.
   - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
     (gzip 0.52 kB), `dist/assets/index-yPGJ-QiY.css` 24.20 kB (gzip 5.54 kB),
