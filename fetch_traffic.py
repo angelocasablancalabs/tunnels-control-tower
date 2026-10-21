@@ -88,7 +88,7 @@ def run():
     - REGOLARE: SOLO quando autostrada e traforo scorrono normalmente, senza deviazioni obbligatorie,
       senza restrizioni di peso/velocità e senza micro-stop programmati.
 
-    COSA CERCARE ED ESTRARRE PER I PROSSIMI 30 GIORNI (da oggi {today_str} a 30 giorni in avanti):
+    COSA CERCARE ED ESTRARRE PER I PROSSIMI 10 GIORNI (da oggi {today_str} ai successivi 9 giorni, esattamente 10 giorni consecutivi a scorrimento):
     0. NON limitarti a cercare "blocchi": un cantiere con deviazione PL aperta è un evento da pubblicare
        come RESTRIZIONE, non da omettere. Ometterlo è un errore operativo grave.
     1. Tutte le chiusure notturne e diurne dei Trafori (Monte Bianco TMB e Fréjus T4).

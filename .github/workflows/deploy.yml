@@ -9,22 +9,13 @@ name: Scheduled Traffic Update & Pages Deploy
 
 on:
   schedule:
-    # 5 daily dispatch slots with automatic recovery tick (+35 min) to eliminate dropped runs:
-    # Slot 1: ~06:15 CEST / 05:15 CET (recovery ~06:50 CEST / 05:50 CET)
-    - cron: '15 4 * * *'
-    - cron: '50 4 * * *'
-    # Slot 2: ~10:45 CEST / 09:45 CET (recovery ~11:20 CEST / 10:20 CET)
-    - cron: '45 8 * * *'
-    - cron: '20 9 * * *'
-    # Slot 3: ~14:15 CEST / 13:15 CET (recovery ~14:50 CEST / 13:50 CET)
-    - cron: '15 12 * * *'
-    - cron: '50 12 * * *'
-    # Slot 4: ~17:45 CEST / 16:45 CET (recovery ~18:20 CEST / 17:20 CET)
-    - cron: '45 15 * * *'
-    - cron: '20 16 * * *'
-    # Slot 5: ~21:15 CEST / 20:15 CET (recovery ~21:50 CEST / 20:50 CET)
-    - cron: '15 19 * * *'
-    - cron: '50 19 * * *'
+    # 2 slot giornalieri strategici (7 giorni su 7) con recovery tick automatico (+35 min):
+    # Slot 1: Mattino (comunicati enti) ~10:15 CEST / 09:15 CET (recovery ~10:50 CEST / 09:50 CET)
+    - cron: '15 8 * * *'
+    - cron: '50 8 * * *'
+    # Slot 2: Tardo pomeriggio (conferme chiusure notturne) ~17:15 CEST / 16:15 CET (recovery ~17:50 CEST / 16:50 CET)
+    - cron: '15 15 * * *'
+    - cron: '50 15 * * *'
   push:
     branches: [ main ]
     # A frontend push must rebuild Pages immediately without spending Gemini

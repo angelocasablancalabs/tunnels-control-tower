@@ -138,6 +138,27 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-21 — Ottimizzazione orizzonte a 10 giorni e 2 slot strategici giornalieri (7/7)
+
+- **Changed:**
+  - `fetch_traffic.py` — ridotto l'orizzonte di scansione temporale da 30 a 10 giorni
+    (oggi + 9 giorni a scorrimento), concentrando la ricerca del modello sui cantieri
+    a breve termine e riducendo l'output JSON del 65% per contenere lo spending API.
+  - `.github/workflows/deploy.yml` — riconfigurata la pianificazione su 2 soli slot
+    giornalieri strategici (7 giorni su 7) sincronizzati con la pubblicazione delle
+    notizie da parte degli enti concessionari: Slot 1 mattino (~10:15 CEST / 09:15 CET)
+    e Slot 2 tardo pomeriggio (~17:15 CEST / 16:15 CET), mantenendo i rispettivi recovery
+    tick (+35 min) filtrati dal gate di freschezza.
+- **Verified:**
+  - `python3 -m py_compile fetch_traffic.py check_freshness.py` → ✅ **exit 0**, sintassi Python corretta.
+  - YAML validation (`ruby -ryaml`) → ✅ **exit 0**, sintassi workflow valida.
+  - `npm run lint` → ✅ **exit 0**, zero errori, zero warning.
+  - `npm run build` → ✅ **exit 0**, `vite v8.3.4`, 1921 moduli, `dist/index.html` 0.91 kB
+    (gzip 0.52 kB), `dist/assets/index-yPGJ-QiY.css` 24.20 kB (gzip 5.54 kB),
+    `dist/assets/index-DcSRazXG.js` 243.76 kB (gzip 75.47 kB). CSS identico per dimensione e hash.
+- **Debt touched:** none.
+- **Blocked / needs decision:** modifiche salvate localmente nel worktree; push su `main` da confermare dall'utente (`AGENTS.md` §5 ASK FIRST).
+
 ### 2026-10-19 — Soluzione A: Ridondanza automatica cron (recovery ticks), gate di freschezza e retry esponenziale
 
 - **Changed:**
