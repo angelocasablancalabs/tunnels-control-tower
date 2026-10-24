@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-10-24 14:39",
+  "last_updated": "2026-10-24 20:10",
   "quick_status": {
-    "frejus_next_block": "Nessun blocco totale nei prossimi 10 giorni. Prossima chiusura totale programmata: venerdì 6 novembre 2026 dalle 22:00 alle 06:00 (durata: 8 ore, senso FR->IT). Restrizioni attive nel periodo: chiusure notturne A32 Chianocco-Susa Est (26, 27, 28 ott, 22:30-06:00) con deviazione SS24 aperta ai 44t (+15/20 min) e micro-stop tecnici Tube 1 Fréjus (22:30-23:15 e 04:30-05:15).",
-    "monte_bianco_next_block": "Blocco Totale notturno imminente: lunedì 26 ottobre 2026 dalle 22:00 alle 06:00 del 27/10 (durata: 8 ore). Repliche programmate nelle notti del 27-28 ott, 28-29 ott e 2-3 nov 2026 (sempre fascia 22:00-06:00, durata: 8 ore ciascuna) senza percorsi alternativi locali per 40-44t."
+    "frejus_next_block": "Nessun blocco totale programmato. Prossima restrizione: micro-stop tecnico Tube 1 lunedì 26/10 ore 22:30-23:15 (durata: 45 min) con attese ai piazzali.",
+    "monte_bianco_next_block": "Blocco Totale Notturno lunedì 26/10 ore 22:00 - martedì 27/10 ore 06:00 (durata: 8 ore) per manutenzione della volta. Fermo obbligatorio e stoccaggio mezzi a Passy e Aosta."
   },
   "days": [
     {
@@ -10,15 +10,15 @@
       "day_name": "Sabato",
       "is_today": true,
       "frejus": {
-        "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnico Tube 1 Fréjus 04:30-05:15 (durata: 45 min) | Transito serale e notturno regolare",
-        "details": "Finestra tecnica di 45 min per rimozione cantiere Tube 1 (04:30-05:15, durata: 45 min) conclusa in mattinata. Per l'intera fascia serale e notturna transito regolare su A43 Maurienne, Traforo del Fréjus (T4) e A32 senza cantieri bloccanti né deviazioni.",
-        "micro_stops": "Stop tecnico rimozione cantiere Tube 1: 04:30-05:15 (durata: 45 min)"
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Traforo del Fréjus (T4) e assi autostradali A32 e A43 Maurienne interamente transitabili senza restrizioni, cantieri o deviazioni per complessi 5 assi 40-44t.",
+        "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Nessuna interruzione programmata al Traforo del Monte Bianco (TMB). Corridoio autostradale di adduzione (A40, RN205, A5) regolarmente percorribile per bilici 40-44t.",
+        "details": "Traforo del Monte Bianco (TMB), rampa RN205 e autostrada A40 aperte in entrambe le direzioni senza limitazioni per mezzi pesanti Euro 6.",
         "micro_stops": ""
       }
     },
@@ -29,13 +29,13 @@
       "frejus": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Nessuna chiusura programmata, nessuna deviazione attiva e nessun micro-stop tecnico nella giornata domenicale. Asse A43 - T4 Fréjus - A32 regolarmente percorribile per bilici 40-44t.",
+        "details": "Circolazione regolare su tutto il corridoio Fréjus (A32-T4-A43). Nessun cantiere o fermo tecnico programmato per la direttrice pesante.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Transito regolare su tutto l'asse Monte Bianco (TMB, A40, RN205, A5). Nessun senso unico alternato né interruzioni notturne nel fine settimana.",
+        "details": "Transito regolare sul traforo e sulle tratte autostradali di adduzione A40 e A5. Nessun blocco notturno previsto per la notte tra domenica e lunedì.",
         "micro_stops": ""
       }
     },
@@ -45,14 +45,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Chiusura notturna A32 Chianocco-Susa Est 22:30-06:00 con deviazione SS24 aperta ai PL (+15/20 min) | Micro-stop T4 22:30-23:15 (durata: 45 min)",
-        "details": "Chiusura notturna tratta A32 tra Chianocco e Susa Est in direzione Bardonecchia dalle 22:30 alle 06:00 (durata: 7 ore e 30 min) per manutenzione gallerie; deviazione obbligatoria attiva su SS24 del Monginevro aperta e autorizzata ai mezzi pesanti 40-44t con ritardo stimato di +15/20 min. Al Traforo del Fréjus programmato stop tecnico di 45 min per posa cantiere Tube 1 dalle 22:30 alle 23:15 (durata: 45 min).",
-        "micro_stops": "Stop tecnico posa cantiere Tube 1: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnico T4 Fréjus 22:30-23:15 (durata: 45 min)",
+        "details": "Traforo del Fréjus aperto al transito con micro-stop tecnico serale 22:30-23:15 per posa segnaletica di cantiere sul Tube 1 (direzione Francia-Italia). Transito garantito ai 40-44t con attesa regolata ai piazzali (+30/45 min).",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Notturno TMB 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura totale notturna programmata del Traforo del Monte Bianco in entrambe le direzioni dalle 22:00 alle 06:00 del giorno successivo per lavori di manutenzione ordinaria e monitoraggi della struttura. Nessun itinerario alternativo locale percorribile per complessi di veicoli 40-44t; sosta forzata o re-routing obbligatorio su asse Fréjus.",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Chiusura totale programmata del Traforo del Monte Bianco in entrambi i sensi di marcia dalle ore 22:00 alle ore 06:00 del giorno successivo per lavori di manutenzione ordinaria della volta. Nessun itinerario alternativo percorribile per bilici 40-44t sul massiccio; arresto obbligatorio e stoccaggio mezzi nelle aree di regolazione di Passy (FR, anticipo chiusura 45 min) e Aosta (IT, anticipo chiusura 60 min). Deviazione traffico pesante sull'asse Fréjus.",
         "micro_stops": ""
       }
     },
@@ -62,14 +62,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Chiusura notturna A32 Chianocco-Susa Est 22:30-06:00 con deviazione SS24 aperta ai PL (+15/20 min) | Micro-stop T4 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
-        "details": "Chiusura notturna tratta A32 Chianocco - Susa Est in direzione Bardonecchia dalle 22:30 alle 06:00 (durata: 7 ore e 30 min) con deviazione su SS24 aperta ai mezzi pesanti 40-44t (ritardo stimato: +15/20 min). Al Traforo del Fréjus attive due finestre tecniche di stop per cantiere Tube 1 dalle 04:30 alle 05:15 e dalle 22:30 alle 23:15 (durata: 45 min ciascuno).",
-        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15 (durata: 45 min) | Stop tecnico posa cantiere: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnici T4 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
+        "details": "Traforo del Fréjus e assi A43/A32 transitabili con due finestre tecniche di sospensione della circolazione per rimozione cantiere (04:30-05:15) e posa cantiere notturno (22:30-23:15) sul Tube 1. Rallentamenti e attese ai piazzali stimati in +30/45 min.",
+        "micro_stops": "Stop tecnici 45m: 04:30-05:15 e 22:30-23:15"
       },
       "monte_bianco": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Notturno TMB 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura totale notturna programmata del Traforo del Monte Bianco in entrambe le direzioni dalle 22:00 alle 06:00 del 28/10 (durata: 8 ore) per interventi di manutenzione impianti. Corridoio completamente inagibile ai mezzi pesanti 40-44t senza deviazioni stradali praticabili.",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Chiusura totale del Traforo del Monte Bianco in entrambe le direzioni dalle ore 22:00 alle ore 06:00 del 28/10 per interventi tecnici. Transito interdetto ai mezzi pesanti 40-44t senza percorsi alternativi locali; sosta obbligatoria nelle aree di Passy e Aosta.",
         "micro_stops": ""
       }
     },
@@ -79,14 +79,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Chiusura notturna A32 Chianocco-Susa Est 22:30-06:00 con deviazione SS24 aperta ai PL (+15/20 min) | Micro-stop T4 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
-        "details": "Terza notte di chiusura tratta A32 tra Chianocco e Susa Est dir. Bardonecchia dalle 22:30 alle 06:00 (durata: 7 ore e 30 min) con deviazione su SS24 aperta ai 40-44t (+15/20 min). Al Traforo del Fréjus previsti micro-stop per cantiere Tube 1 dalle 04:30 alle 05:15 e dalle 22:30 alle 23:15 (durata: 45 min ciascuno).",
-        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15 (durata: 45 min) | Stop tecnico posa cantiere: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnici T4 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
+        "details": "Circolazione attiva per mezzi pesanti 40-44t con due micro-interruzioni per movimentazione segnaletica cantiere sul Tube 1: dalle 04:30 alle 05:15 e dalle 22:30 alle 23:15. Attese stimate ai piazzali di Modane e Bardonecchia (+30/45 min).",
+        "micro_stops": "Stop tecnici 45m: 04:30-05:15 e 22:30-23:15"
       },
       "monte_bianco": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Notturno TMB 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura totale notturna del Traforo del Monte Bianco in entrambi i sensi di marcia dalle 22:00 alle 06:00 del 29/10 (durata: 8 ore). Transito interdetto a tutti i veicoli pesanti; assenza di percorsi secondari compatibili per bilici 40-44t.",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Chiusura totale notturna del traforo dalle ore 22:00 alle ore 06:00 del 29/10 per manutenzione volta. Corridoio transalpino non transitabile per bilici 40-44t; blocco accessi con stoccaggio regolato alle barriere a monte.",
         "micro_stops": ""
       }
     },
@@ -96,14 +96,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
-        "details": "Tratte autostradali A32 e A43 regolarmente aperte senza deviazioni né interruzioni di tratta. Al Traforo del Fréjus restano attive le due finestre di stop tecnico di 45 min per posa/smontaggio cantiere Tube 1 dalle 04:30 alle 05:15 (durata: 45 min) e dalle 22:30 alle 23:15 (durata: 45 min).",
-        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15 (durata: 45 min) | Stop tecnico posa cantiere: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnici T4 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
+        "details": "Corridoio Fréjus operativo con stop tecnici di 45 minuti (04:30-05:15 e 22:30-23:15) per gestione cantiere manutenzione Tube 1 lato SFTRF/SITAF. Transito regolare nelle restanti ore con accumulo ai varchi di +30/45 min.",
+        "micro_stops": "Stop tecnici 45m: 04:30-05:15 e 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "REGOLARE",
-        "title": "Transito Regolare",
-        "details": "Nessuna chiusura notturna programmata nella notte tra giovedì 29 e venerdì 30 ottobre (calendario TMB non prevede interruzioni). Asse autostradale A40, RN205 e A5 regolarmente percorribile per complessi 40-44t.",
+        "status": "BLOCCO_TOTALE",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Interruzione totale della circolazione in entrambi i sensi di marcia dalle ore 22:00 alle ore 06:00 del 30/10. Transito transalpino impossibile per complessi 40-44t; sosta vincolata nelle aree di Passy e Aosta. Riapertura confermata alle ore 06:00.",
         "micro_stops": ""
       }
     },
@@ -113,14 +113,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
-        "details": "Autostrade A43 e A32 regolarmente transitabili senza deviazioni. Al Traforo del Fréjus vigono due micro-stop tecnici di 45 min per movimentazione cantiere Tube 1 dalle 04:30 alle 05:15 (durata: 45 min) e dalle 22:30 alle 23:15 (durata: 45 min).",
-        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15 (durata: 45 min) | Stop tecnico posa cantiere: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnici T4 Fréjus 04:30-05:15 e 22:30-23:15 (durata: 45 min ciascuno)",
+        "details": "Transito consentito ai bilici 40-44t con due sospensioni di 45 minuti nelle fasce 04:30-05:15 e 22:30-23:15 per balisaggio Tube 1. Rallentamenti operativi stimati in +30/45 min alle piattaforme di accesso.",
+        "micro_stops": "Stop tecnici 45m: 04:30-05:15 e 22:30-23:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Nessuna interruzione al Traforo del Monte Bianco né sui raccordi autostradali A40, RN205 e A5; circolazione aperta e regolare per bilici 40-44t.",
+        "details": "Traforo del Monte Bianco regolarmente aperto nei due sensi di marcia per il fine settimana; nessuna chiusura notturna programmata nel calendario TMB-GEIE. Rete A40 e RN205 fluida per mezzi pesanti.",
         "micro_stops": ""
       }
     },
@@ -130,14 +130,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnico Tube 1 Fréjus 04:30-05:15 (durata: 45 min) | Transito serale e notturno regolare",
-        "details": "Micro-stop tecnico mattutino di 45 min per rimozione cantiere Tube 1 dalle 04:30 alle 05:15 (durata: 45 min). Nel proseguo della giornata e durante la notte transito pienamente regolare su T4, A43 e A32 senza interruzioni né deviazioni.",
-        "micro_stops": "Stop tecnico rimozione cantiere Tube 1: 04:30-05:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnico Mattutino T4 Fréjus 04:30-05:15 (durata: 45 min)",
+        "details": "Unico stop tecnico programmato per smontaggio cantiere Tube 1 dalle 04:30 alle 05:15 con attesa ai varchi (+30/45 min). Successivamente viabilità e traforo pienamente regolari per l'intera giornata e notte su A32, T4 e A43.",
+        "micro_stops": "Stop tecnico 45m rimozione cantiere: 04:30-05:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Transito regolare nel fine settimana su Traforo del Monte Bianco, A40 e A5 per tutti i veicoli pesanti fino a 44t.",
+        "details": "Circolazione regolare attraverso il traforo e lungo le vie di adduzione A40 e RN205. Nessun cantiere o limitazione di sagoma e peso per bilici 40-44t Euro 6.",
         "micro_stops": ""
       }
     },
@@ -148,13 +148,13 @@
       "frejus": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Nessuna restrizione programmata, nessuna deviazione attiva e nessun micro-stop tecnico nella giornata domenicale. Circolazione regolare su A43, Traforo del Fréjus e A32 per mezzi pesanti 40-44t.",
+        "details": "Nessuna restrizione programmata. Il corridoio autostradale A32 - T4 Fréjus - A43 è completamente aperto e privo di micro-stop o deviazioni obbligatorie per il traffico pesante.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Nessuna interruzione programmata. Corridoio Monte Bianco (TMB, A40, RN205, A5) regolarmente transitabile per bilici 40-44t.",
+        "details": "Traforo del Monte Bianco regolarmente in servizio nei due sensi di marcia. Nessun fermo tecnico o restrizione infrastrutturale.",
         "micro_stops": ""
       }
     },
@@ -164,14 +164,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnico Tube 1 Fréjus 22:30-23:15 (durata: 45 min)",
-        "details": "Tratte autostradali A43 e A32 regolarmente transitabili. Al Traforo del Fréjus riprende il ciclo settimanale di micro-stop tecnici con la finestra di posa cantiere Tube 1 dalle 22:30 alle 23:15 (durata: 45 min) in direzione Francia-Italia.",
-        "micro_stops": "Stop tecnico posa cantiere Tube 1: 22:30-23:15 (durata: 45 min)"
+        "title": "Micro-stop Tecnico T4 Fréjus 22:30-23:15 (durata: 45 min)",
+        "details": "Traforo del Fréjus transitabile con finestra di fermo tecnico programmata dalle 22:30 alle 23:15 per posa cantiere settimanale Tube 1. Ritardo stimato ai piazzali +30/45 min.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Notturno TMB 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura totale notturna programmata del Traforo del Monte Bianco in entrambi i sensi di marcia dalle 22:00 alle 06:00 del 03/11 (durata: 8 ore) per interventi di manutenzione impianti e sicurezza. Transito vietato a tutti i veicoli; corridoio impraticabile per bilici 40-44t senza deviazioni locali percorribili.",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Chiusura totale notturna del Traforo del Monte Bianco in entrambi i sensi di marcia dalle ore 22:00 alle ore 06:00 del 03/11 per manutenzione ordinaria. Corridoio impraticabile per mezzi pesanti 40-44t; sosta e filtraggio obbligatorio presso le aree di regolazione di Passy e Aosta.",
         "micro_stops": ""
       }
     }
