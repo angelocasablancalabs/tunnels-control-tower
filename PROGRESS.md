@@ -138,6 +138,96 @@ Ordered by risk. TD-01 and TD-14 first: one is a security incident, the other un
 
 ## 5. Last Session Notes
 
+### 2026-10-27 — Runner periodico del shadow test A/B (`auto_runner.py`)
+
+- **Changed:**
+  - `auto_runner.py` — nuovo runner da terminale per il ciclo A/B: esegue `fetch_traffic_whitelist.py` e
+    subito dopo `compare_runs.py` con `sys.executable` dalla radice del repo (entrambi usano percorsi
+    relativi `public/...` e `load_dotenv()`, quindi la cwd non è un dettaglio), mostra l'output dei figli
+    in diretta e accoda un riepilogo timestampato con il blocco `RIEPILOGO` del comparatore in
+    `logs/shadow_test.log` (cartella già coperta da `.gitignore`). Separatori e timestamp
+    `YYYY-MM-DD HH:MM:SS` prima e dopo ogni passo. Flag `--hours` (default 3), `--minutes` e `--once`,
+    in gruppo mutuamente esclusivo e con valori ≤ 0 rifiutati. Un passo fallito non interrompe il ciclo;
+    `KeyboardInterrupt` stampa un congedo senza traceback. I figli girano in un gruppo di processi
+    separato e con `PYTHONUNBUFFERED=1`: senza il secondo, l'output su pipe si presenterebbe a blocchi
+    invece che in diretta.
+  - `README.md` — quarta voce nella sezione "A/B shadow test" e riga nella tabella Available Scripts.
+- **Verified:**
+  - `python -m py_compile auto_runner.py` → ✅ **exit 0**.
+  - `.venv\Scripts\python.exe auto_runner.py --once` → ✅ **exit 0**: fetch **116,9 s** (7/7 fonti,
+    6 PDF, 36.789 caratteri, chiamata Gemini riuscita al primo tentativo), compare **0,1 s**, chiusura
+    `✅ CICLO OK`; `logs/shadow_test.log` riporta il riepilogo (stato identico 10/10 giorni su Fréjus,
+    7/10 su Monte Bianco, 20 divergenze informative su 20 celle corridoio-giorno).
+  - Interruzioni verificate in modo deterministico (`run_cycle`/`time.sleep` sostituiti in una sessione
+    separata, log su cartella temporanea poi rimossa): Ctrl+C durante l'attesa →
+    `👋 Interruzione richiesta — ultimo run completato: #1`; Ctrl+C a metà run →
+    `run #1 interrotto durante l'esecuzione`; in entrambi i casi **exit 0**, nessun traceback, voce nel log.
+  - Ramo di errore verificato con uno stub che esce 1 (messaggio `❌ ... 401`): il confronto gira comunque
+    sull'ultimo snapshot B, il ciclo riporta `⚠️ CICLO CON ANOMALIE`, il log registra il messaggio chiave,
+    `--once` esce **1** (utilizzabile come smoke check in CI).
+  - Argomenti non validi (`--hours 0`, `--minutes -5`, `--hours` insieme a `--minutes`, `--hours abc`)
+    → exit **2** con messaggio di argparse.
+  - `npm run lint` → ✅ **exit 0**, nessun output.
+  - `npm run build` → ✅ **exit 0**, `dist/assets/index-BrtPqRGY.js` 243,77 kB e
+    `index-yPGJ-QiY.css` 24,20 kB: **identici** al baseline documentato, quindi il bundle non è cambiato
+    e nessun token di classe è trapelato nella documentazione (`AGENTS.md` §4.7).
+- **Debt touched:** none
+- **Blocked / needs decision:**
+  - Nessuno. Nota: `--once` ha rigenerato `public/traffic_data_whitelist.json` e la copia in root da fonti
+    ufficiali reali (file **non tracciati**, nessun diff git); la `GEMINI_API_KEY` in `.env` ora è valida,
+    quindi il blocco "chiave 401" registrato nella sessione precedente è superato.
+  - Commit e push restano a discrezione dell'utente (`AGENTS.md` §5 ASK FIRST).
+
+### 2026-10-27 — Pipeline whitelist parallela (A/B shadow test) e switch della sorgente dati solo in locale
+
+- **Changed:**
+  - `fetch_traffic_whitelist.py` — nuovo script autonomo, gemello sperimentale di `fetch_traffic.py`:
+    ingestione delle 7 fonti ufficiali in whitelist (SFTRF T4/A43, SITAF T4/A32, TMB-GEIE, ATMB, SAV A5),
+    pulizia del testo HTML, download in memoria dei PDF del periodo, invio multimodale a `gemini-3.8-flash`
+    **senza** Google Search Grounding (nessun `tools=`), stesso prompt di dispatch e stesso contratto JSON
+    di produzione; output in `public/traffic_data_whitelist.json` più copia di backup in root. La chiamata
+    usa la **Interactions API** (`client.interactions.create` + `.output_text`), come richiesto da
+    `AGENTS.md` §4.9; `fetch_traffic.py` non è stato toccato. Flag `--dry-run` per verificare l'ingestione
+    senza chiamata API né scrittura file.
+  - `compare_runs.py` — nuovo comparatore A/B giorno per giorno sui due assi: confronta `status`,
+    `micro_stops` (fasce orarie estratte come fa la timeline) e titoli/dettagli con similarità, stampa
+    legenda MATCH / DIFF / DIVERGENCE e riepilogo finale per corridoio; exit code 2 se manca uno snapshot.
+  - `src/App.jsx` — una sola modifica chirurgica, nella `useEffect` di caricamento:
+    `const dataUrl = import.meta.env.VITE_DATA_FILE || 'traffic_data.json'` e `fetch` sul percorso
+    relativo `./` + `dataUrl` (il prefisso relativo è indispensabile per `base: './'`). Nessuna modifica
+    a layout, classi, timeline, testi o logica di business; nessun toggle in UI.
+  - `.env.local` — non tracciato (`*.local` / `.env.*` in `.gitignore`): `VITE_DATA_FILE=traffic_data_whitelist.json`,
+    così `npm run dev` mostra i dati della whitelist mentre la build di produzione resta sul default.
+  - `README.md` — nuova sezione "A/B shadow test: the whitelist pipeline (optional, local only)" e due
+    righe nella tabella Available Scripts.
+- **Verified:**
+  - `python -m py_compile fetch_traffic_whitelist.py compare_runs.py` → ✅ **exit 0**.
+  - `python fetch_traffic_whitelist.py --dry-run` → ✅ **exit 0**: 7/7 fonti raggiunte, 6 PDF (3.657 kB),
+    36.789 caratteri di testo utile; il selettore ha scartato il PDF TMB dell'anno precedente e incluso
+    il calendario trimestrale corrente (15 ottobre – dicembre 2026).
+  - `python compare_runs.py` senza snapshot B → ✅ **exit 2** con messaggio che indica i due comandi da
+    eseguire. Il motore di confronto è stato validato su dizionari sintetici **in memoria**: nessun file
+    scritto, nessun dato inventato in `public/`.
+  - `npm run lint` → ✅ **exit 0**, nessun output (zero errori, zero warning).
+  - `npm run build` con `.env.local` → ✅ **exit 0**, `dist/assets/index-BrtPqRGY.js` 243.77 kB:
+    il bundle punta a `traffic_data_whitelist.json` (parità con il dev locale).
+  - `npm run build` senza `.env.local` (parità GitHub Pages, file spostato e poi ripristinato) → ✅
+    **exit 0**, `dist/assets/index-DcSRazXG.js` 243.76 kB: **hash identico al baseline pre-modifica**,
+    quindi la build di produzione è byte per byte invariata. CSS `index-yPGJ-QiY.css` 24.20 kB invariato
+    in entrambi i build: nessun token di classe è trapelato nella documentazione (`AGENTS.md` §4.7).
+  - Baseline `AGENTS.md` §1 corretto: `npm run lint` **non** è più rotto, il fix §3.1 è già presente in
+    `src/App.jsx:1`; nessuna azione richiesta.
+- **Debt touched:** TD-19 / R-9 — la decisione sull'Interactions API è stata **presa e applicata al solo
+  codice nuovo** (`fetch_traffic_whitelist.py`); `fetch_traffic.py` resta deliberatamente su
+  `generate_content`, che Google continua a supportare, senza riscritture speculative.
+- **Blocked / needs decision:**
+  - Run end-to-end del passo modello **non completato**: la `GEMINI_API_KEY` nel `.env` locale non è
+    valida (401 `API key not valid`, formato non `AIza…`). Verificato che la stessa chiave fallisce
+    **anche** sulla superficie classica `generate_content`, quindi è un problema di credenziale e non del
+    nuovo codice. Rimedio: sostituire la chiave e rieseguire `python fetch_traffic_whitelist.py` seguito
+    da `python compare_runs.py`.
+  - Commit e push restano a discrezione dell'utente (`AGENTS.md` §5 ASK FIRST).
+
 ### 2026-10-21 — Ottimizzazione orizzonte a 10 giorni e 2 slot strategici giornalieri (7/7)
 
 - **Changed:**

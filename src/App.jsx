@@ -324,7 +324,10 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('./traffic_data.json')
+    // Sorgente dati: in produzione (GitHub Pages) resta traffic_data.json; in locale
+    // .env.local imposta VITE_DATA_FILE=traffic_data_whitelist.json per l'A/B test.
+    const dataUrl = import.meta.env.VITE_DATA_FILE || 'traffic_data.json';
+    fetch(`./${dataUrl}`)
       .then((res) => {
         if (!res.ok) throw new Error('Dati non trovati');
         return res.json();

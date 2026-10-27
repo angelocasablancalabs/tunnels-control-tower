@@ -128,6 +128,56 @@ python fetch_traffic.py
 >
 > ⚠️ **Always use the `.venv` above.** It pins `google-genai==2.31.0` and `python-dotenv==1.2.4` (TD-20); the shared global `Python314` site-packages belongs to unrelated projects and drifts independently. CI installs the same pinned `requirements.txt` and injects `GEMINI_API_KEY` from repository secrets, so no `.env` is needed there.
 
+### A/B shadow test: the whitelist pipeline (optional, local only)
+
+`fetch_traffic_whitelist.py` is a parallel, experimental pipeline that produces the **same JSON
+contract** without Google Search grounding. It downloads the official sources in a fixed whitelist
+(SFTRF T4 + A43, SITAF T4 + A32 monthly PDFs, TMB-GEIE planning PDFs, ATMB, SAV A5), sends the cleaned
+text plus the PDF bytes as one multimodal request to `gemini-3.8-flash` with **no tools enabled**, and
+writes `public/traffic_data_whitelist.json` (plus a root copy). It never touches the production files.
+
+```bash
+# 1. Ingest only — no API call, no files written (useful to check the sources are reachable)
+python fetch_traffic_whitelist.py --dry-run
+
+# 2. Full run — requires GEMINI_API_KEY. Uses the Interactions API (client.interactions.create).
+python fetch_traffic_whitelist.py
+
+# 3. Compare the two snapshots, day by day, on both axes
+python compare_runs.py            # full report
+python compare_runs.py --summary  # summary only
+
+# 4. Keep the loop running unattended: fetch + compare, every 3 hours by default
+python auto_runner.py             # Ctrl+C to stop cleanly
+python auto_runner.py --hours 6   # longer interval
+python auto_runner.py --minutes 5 # quick iteration
+python auto_runner.py --once      # single cycle, then exit
+```
+
+`auto_runner.py` runs both steps with `sys.executable` from the repository root (they read
+`public/...` and `.env` relative to the cwd), prints their output live with a timestamp before and
+after each one, and appends a concise summary — including the comparator's `RIEPILOGO` block — to
+`logs/shadow_test.log`, which is git-ignored. Launch it with the `.venv` interpreter so the pipeline
+dependencies resolve. A failed fetch does **not** abort the loop: the comparison still runs against the
+last available snapshot B and the anomaly is recorded in the log. `--once` exits `1` if either step
+fails, which makes it usable as a CI smoke check.
+
+To look at the whitelist snapshot in the dev server, create a git-ignored `.env.local` in the repo root:
+
+```bash
+VITE_DATA_FILE=traffic_data_whitelist.json
+```
+
+`src/App.jsx` reads `import.meta.env.VITE_DATA_FILE` and falls back to `traffic_data.json`, so:
+
+- `npm run dev` with that file → the dashboard renders the whitelist snapshot (A/B evaluation);
+- a production build **without** it (i.e. every CI/GitHub Pages run, since `.env.local` is git-ignored)
+  → the emitted bundle is byte-identical to the pre-existing one and still loads `traffic_data.json`.
+
+Delete the variable (or the file) to return local development to the production data source. The UI
+itself is unchanged: there is no in-app toggle, by design.
+
+
 ## Available Scripts
 
 | Command | Description |
@@ -137,6 +187,9 @@ python fetch_traffic.py
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Run ESLint across the repository |
 | `python fetch_traffic.py` | Regenerate `public/traffic_data.json` |
+| `python fetch_traffic_whitelist.py` | Regenerate `public/traffic_data_whitelist.json` (official-source whitelist, no search grounding) |
+| `python compare_runs.py` | Day-by-day A/B diff between the grounding and whitelist snapshots |
+| `python auto_runner.py` | Loop the whitelist fetch + A/B comparison (3 h default, `--hours`/`--minutes`/`--once`) and log to `logs/shadow_test.log` |
 
 > There is **no test runner and no type-checker** configured in this repository. Both are tracked as debt in [`PROGRESS.md`](./PROGRESS.md).
 
