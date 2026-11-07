@@ -1,41 +1,24 @@
 {
-  "last_updated": "2026-11-06 21:54",
+  "last_updated": "2026-11-07 15:52",
   "quick_status": {
-    "frejus_next_block": "Blocco Mezzi Pesanti sens France-Italie stanotte 06/11 ore 22:00-06:00 (durata: 8 ore) con sosta forzata a Rieu Sec; chiusura totale bidirezionale T4 sabato 14/11 ore 22:00-02:00 (durata: 4 ore)",
-    "monte_bianco_next_block": "Nessun blocco totale al TMB nei prossimi 10 giorni (prossima chiusura totale lunedì 16/11 ore 22:00-06:00); restrizione diurna/notturna su RN205 Égratz e chiusura A40 Marnaz il 09/11 ore 21:00-05:00 con deviazione RD 1205 (+25/35 min)"
+    "frejus_next_block": "Chiusura notturna T4 sens France-Italie stasera 07/11 ore 22:00-06:00 (durata: 8 ore); prossimo blocco bidirezionale sabato 14/11 ore 22:00-02:00 (durata: 4 ore)",
+    "monte_bianco_next_block": "Blocco totale notturno TMB programmato dalle 22:00 di lunedì 16/11 alle 06:00 di martedì 17/11 (durata: 8 ore)"
   },
   "days": [
     {
-      "date": "2026-11-06",
-      "day_name": "Venerdì",
+      "date": "2026-11-07",
+      "day_name": "Sabato",
       "is_today": true,
       "frejus": {
         "status": "BLOCCO_TOTALE",
         "title": "Blocco Notturno T4 sens France-Italie 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura totale del traforo nel solo senso Francia-Italia per interventi di manutenzione. Corridoio impraticabile per bilici 40-44t: divieto totale di transito pesante sui passi alpini (Col du Mont-Cenis interdetto ai PL > 3.5t), assenza di itinerari alternativi praticabili e stoccaggio obbligatorio dei mezzi pesanti nell'area di regolazione di Rieu Sec (A43). In senso inverso (Italia-Francia) il transito rimane aperto ma soggetto a micro-stop per configurazione cantiere.",
-        "micro_stops": "Stop tecnico 45 min posa cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
-      },
-      "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere Viaduc des Égratz RN205 00:00-23:59 a corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Traforo TMB regolarmente transitabile h24. Sull'asse di adduzione francese RN205, manutenzione straordinaria del Viaduc des Égratz (Passy): chiusura della corsia di sorpasso in direzione Chamonix e transito dei mezzi pesanti 40-44t consentito esclusivamente sulla corsia di destra con velocità ridotta a 50 km/h; ritardo stimato +10/15 min. Sull'A40 cantieri di dévoiement ad Archamps con corsie ristrette verso Mâcon.",
+        "details": "Chiusura notturna totale della canna in direzione Francia-Italia dalle ore 22:00 alle ore 06:00 del mattino seguente (durata: 8 ore) per lavori impiantistici. Nessun itinerario alternativo percorribile per bilici 40-44t (Col du Mont-Cenis / RD 1006 interdetto al transito pesante >3.5t e non transitabile). Sosta forzata e stoccaggio obbligatorio dei mezzi pesanti presso l'area di regolazione di Rieu Sec (FR). Direzione Italia-Francia regolarmente aperta.",
         "micro_stops": ""
-      }
-    },
-    {
-      "date": "2026-11-07",
-      "day_name": "Sabato",
-      "is_today": false,
-      "frejus": {
-        "status": "BLOCCO_TOTALE",
-        "title": "Blocco Notturno T4 sens France-Italie 22:00-06:00 (durata: 8 ore)",
-        "details": "Chiusura programmata SFTRF/SITAF della galleria nel senso di marcia Francia-Italia dalle 22:00 del 07/11 alle 06:00 del 08/11. Nessun percorso alternativo percorribile per veicoli pesanti 40-44t: la rete viaria secondaria montana (RD 1006 / Col du Mont-Cenis) è interdetta ai carichi pesanti superiori a 3.5t; stoccaggio vincolante a Rieu Sec. Direttrice Italia-Francia aperta con micro-interruzioni tecniche per manovre d'esercizio.",
-        "micro_stops": "Stop tecnico 45 min posa cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere RN205 Viaduc des Égratz 00:00-23:59 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Traforo Monte Bianco interamente aperto senza interruzioni programmate. Sull'adduzione RN205 permane la restrizione di carreggiata per i lavori sul viadotto tra Passy e Le Fayet con transito su una sola corsia in salita aperto ai 40-44t, possibili rallentamenti (+10/15 min).",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Nessuna interruzione programmata al Traforo del Monte Bianco. Tratte autostradali di adduzione A40, RN205 e A5 libere da blocchi o deviazioni obbligatorie per convogli commerciali da 44t.",
         "micro_stops": ""
       }
     },
@@ -44,15 +27,15 @@
       "day_name": "Domenica",
       "is_today": false,
       "frejus": {
-        "status": "RESTRIZIONE",
-        "title": "Riapertura T4 06:00-22:30 e cantiere A32 Bardonecchia-Savoulx (+10/15 min)",
-        "details": "Termine del blocco Francia-Italia alle ore 06:00. Corridoio pienamente percorribile per i 40-44t. Sull'adduzione italiana A32 è attivo lo scambio di carreggiata permanente con doppio senso di marcia su singola corsia tra lo Svincolo di Bardonecchia e Savoulx in direzione Torino (+10/15 min). In tarda serata ripresa dei micro-stop tecnici.",
-        "micro_stops": "Stop tecnico 45 min posa cantiere Tube 1: 22:30-23:15"
+        "status": "BLOCCO_TOTALE",
+        "title": "Blocco Notturno T4 sens France-Italie 00:00-06:00 (durata: 6 ore) | Regolare diurno",
+        "details": "Fino alle ore 06:00 prosegue il blocco totale del flusso Francia-Italia (durata: 6 ore residue) con stoccaggio PL a Rieu Sec e assenza di detour praticabile per 44t. Dalle 06:00 riapertura completa e transito ordinario senza ulteriori cantieri o micro-stop serali.",
+        "micro_stops": ""
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere RN205 Viaduc des Égratz 00:00-23:59 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Galleria TMB regolarmente aperta nei due sensi. Carreggiata ridotta a una corsia per i carichi pesanti in direzione Chamonix sul Viaduc des Égratz (RN205), nessun itinerario alternativo richiesto; ritardo medio stimato +10/15 min.",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Circolazione fluida e regolare in entrambe le direzioni attraverso il TMB e lungo i corridoi di raccordo A40/RN205 e A5.",
         "micro_stops": ""
       }
     },
@@ -62,14 +45,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 22:30-23:15 / 04:30-05:15 e cantiere A32 (+15/20 min)",
-        "details": "Traforo del Fréjus aperto al transito 40-44t ma soggetto a fermi tecnici programmati per allestimento cantiere di manutenzione Tube 1. Sull'autostrada A32 restringimento e scambio di carreggiata attivo nel tratto Bardonecchia-Savoulx con rallentamenti (+10/15 min). Sulla A43 Maurienne lavori diurni ordinari senza deviazioni obbligatorie per i PL.",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
+        "title": "Transito Regolare con micro-stop tecnico notturno Tube 1",
+        "details": "Traforo del Fréjus e assi autostradali A43/A32 pienamente transitabili per bilici 40-44t senza deviazioni. Programmata una sola finestra di micro-stop tecnico a tarda sera per posa cantiere Tube 1 con possibili accodamenti ai piazzali.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Chiusura notturna A40 Bonneville-Cluses 21:00-05:00 con deviazione RD 1205 aperta ai PL (+25/35 min)",
-        "details": "Tunnel TMB regolarmente aperto h24. Chiusura programmata dell'autostrada A40 in direzione Chamonix dalle 21:00 alle 05:00 (durata: 8 ore) tra il casello n°17 Bonneville Z.I. e il n°19 Cluses per rifacimento pavimentazione a Marnaz. Deviazione obbligatoria predisposta su RD 1205, interamente autorizzata e praticabile per bilici 40-44t con ritardo stimato di +25/35 min. Concomitante riduzione a corsia unica sul Viaduc des Égratz (RN205).",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Traforo del Monte Bianco operativo H24 in entrambe le direzioni. Cantiere fisso con scambio carreggiata sul Viadotto Arnad (A5) transitabile per sagome standard 40-44t a velocità ridotta (60 km/h).",
         "micro_stops": ""
       }
     },
@@ -79,14 +62,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 22:30-23:15 / 04:30-05:15 e scambio corsia A32 (+10/15 min)",
-        "details": "Galleria T4 operativa con due finestre notturne di fermo tecnico da 45 min per consentire le manovre operative di cantiere nel Tube 1. Rallentamenti sull'asse A32 per corsia unica nel segmento Savoulx-Bardonecchia. Transito autostradale A43 regolare per i mezzi pesanti fino a 44t.",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
+        "title": "Transito attivo con doppi micro-stop tecnici Tube 1",
+        "details": "Asse del Fréjus aperto al trasporto pesante. Sono previste due interruzioni tecniche temporanee di 45 minuti per smontaggio all'alba e riposizionamento serale dei dispositivi di cantiere nel Tube 1.",
+        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15; Stop tecnico posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere RN205 Viaduc des Égratz 00:00-23:59 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Tunnel Monte Bianco aperto senza chiusure notturne. Lungo la RN205 viadotto Égratz a senso di marcia su corsia singola verso Chamonix aperta ai mezzi 40-44t (+10/15 min). Lavori di ammodernamento e monitoraggio al Tunnel du Vuache (A40) con riduzione di velocità.",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Nessuna restrizione né chiusura programmata al TMB. Transito regolare per i mezzi pesanti su A40, RN205 e raccordo A5.",
         "micro_stops": ""
       }
     },
@@ -96,14 +79,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 22:30-23:15 / 04:30-05:15 e cantiere A32 (+10/15 min)",
-        "details": "Transito dei convogli pesanti 40-44t attivo lungo l'asse A32-T4-A43 con rallentamenti per i consueti stop tecnici di posa e rimozione cantiere notturno al traforo. Scambio di carreggiata attivo sull'A32 verso Torino tra Bardonecchia e Savoulx.",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
+        "title": "Transito attivo con doppi micro-stop tecnici Tube 1",
+        "details": "Circolazione attiva su A43 e T4. Previsti due micro-stop tecnici di 45 minuti ciascuno al traforo per rimozione e posa cantierizzazione Tube 1.",
+        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15; Stop tecnico posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere RN205 Viaduc des Égratz 00:00-23:59 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Traforo TMB aperto regolarmente in entrambi i sensi. Corsia di marcia unica per il traffico pesante sul Viaduc des Égratz (RN205) in direzione Chamonix (+10/15 min). Raccordi valdostani A5 e RAV scorrevoli.",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Traforo del Monte Bianco regolarmente aperto al transito commerciale pesante senza chiusure notturne né sensi unici alternati.",
         "micro_stops": ""
       }
     },
@@ -113,14 +96,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 22:30-23:15 / 04:30-05:15 e cantiere A32 (+10/15 min)",
-        "details": "Corridoio Fréjus aperto ai mezzi 40-44t; programmate le due interruzioni tecniche notturne da 45 min per le squadre di sicurezza e cantiere Tube 1. Rallentamenti tra Savoulx e Bardonecchia su A32 per restringimento carreggiata.",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
+        "title": "Transito attivo con doppi micro-stop tecnici Tube 1",
+        "details": "Corridoio Fréjus A43/T4/A32 praticabile per mezzi pesanti 40-44t. Rallentamenti temporanei legati alle due finestre operative tecniche da 45 min nel tunnel.",
+        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15; Stop tecnico posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Cantiere RN205 Viaduc des Égratz 00:00-23:59 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Traforo TMB completamente aperto h24. Sulla RN205 permane la canalizzazione su singola corsia a destra sul Viaduc des Égratz (Passy) per i mezzi diretti al Monte Bianco (+10/15 min). Nessuna limitazione di peso aggiuntiva per i bilici da 44t.",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Viabilità ordinaria al Traforo del Monte Bianco. Rete autostradale di adduzione francese (ATMB) e italiana (SAV/RAV) regolarmente percorribile.",
         "micro_stops": ""
       }
     },
@@ -130,14 +113,14 @@
       "is_today": false,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Micro-stop tecnici Tube 1 22:30-23:15 / 04:30-05:15 e cantiere A32 (+10/15 min)",
-        "details": "Transito regolare diurno per i mezzi pesanti. Nella notte programmate le micro-interruzioni da 45 min per gestione infrastrutturale Tube 1 Fréjus. Sull'A32 cantiere attivo tra Bardonecchia e Savoulx con transito regolato.",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15 e 04:30-05:15"
+        "title": "Transito attivo con doppi micro-stop tecnici Tube 1",
+        "details": "Transito pesante operativo. Due micro-interruzioni tecniche programmate al traforo per smontaggio del cantiere all'alba e riposizionamento notturno.",
+        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15; Stop tecnico posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
-        "status": "RESTRIZIONE",
-        "title": "Fase finale cantiere RN205 Viaduc des Égratz 00:00-18:00 corsia unica dir. Chamonix (+10/15 min)",
-        "details": "Galleria del Monte Bianco aperta h24. In giornata conclusione delle lavorazioni straordinarie sul Viaduc des Égratz (RN205) con ripristino progressivo della doppia corsia in salita verso Chamonix entro la serata; fino a completamento permane il transito su singola corsia (+10/15 min).",
+        "status": "REGOLARE",
+        "title": "Transito Regolare",
+        "details": "Circolazione regolare attraverso la galleria del Monte Bianco; nessun fermo programmato per mezzi pesanti 40-44t.",
         "micro_stops": ""
       }
     },
@@ -147,14 +130,14 @@
       "is_today": false,
       "frejus": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno T4 Entrambi i Sensi 22:00-02:00 (durata: 4 ore)",
-        "details": "Chiusura totale e bilaterale programmata da SFTRF e SITAF del Traforo del Fréjus dalle ore 22:00 del 14/11 alle ore 02:00 del 15/11 (durata: 4 ore) per esercitazione binazionale di sicurezza e manutenzione straordinaria. Corridoio transalpino totalmente interrotto nei due sensi: nessun itinerario alternativo percorribile per bilici 40-44t (Col du Mont-Cenis interdetto ai mezzi pesanti); obbligo di fermata e stoccaggio presso le aree dedicate di Rieu Sec (lato Francia, A43) e Salbertrand/Susa (lato Italia, A32).",
-        "micro_stops": "Chiusura totale bilaterale: 22:00-02:00"
+        "title": "Blocco Totale Notturno Traforo Fréjus 22:00-02:00 (durata: 4 ore)",
+        "details": "Chiusura totale del Traforo del Fréjus in ENTRAMBI i sensi di marcia dalle ore 22:00 alle ore 02:00 del mattino seguente (durata: 4 ore) per manutenzione straordinaria e verifiche di sicurezza. Nessun itinerario alternativo stradale autorizzato ai mezzi pesanti 40-44t (colli del Moncenisio e del Monginevro vietati o non idonei al transito pesante di linea). Sosta obbligatoria con regolazione e stoccaggio presso le aree di Rieu Sec (FR) e Bardonecchia (IT).",
+        "micro_stops": "Stop tecnico rimozione cantiere: 04:30-05:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo del Monte Bianco e tratte autostradali di adduzione A40, RN205 e A5 Valle d'Aosta interamente libere da cantieri e restrizioni al transito pesante 40-44t; viabilità fluida nei due sensi di marcia.",
+        "details": "Traforo del Monte Bianco aperto regolarmente in entrambe le direzioni. Costituisce l'unico valico alpino operativo per i mezzi pesanti durante la finestra di chiusura totale notturna del Fréjus.",
         "micro_stops": ""
       }
     },
@@ -163,15 +146,32 @@
       "day_name": "Domenica",
       "is_today": false,
       "frejus": {
-        "status": "RESTRIZIONE",
-        "title": "Riapertura post-blocco 02:00, cantiere A32 e micro-stop Tube 1 22:30-23:15 (+10/15 min)",
-        "details": "Traforo del Fréjus riaperto regolarmente alla circolazione dopo le ore 02:00. Corridoio aperto ai 40-44t con ripresa dei micro-stop serali da 45 min per posa cantiere Tube 1 (dalle 22:30 alle 23:15). Sulla A32 permane il restringimento per scambio di carreggiata nel tratto Bardonecchia-Savoulx (+10/15 min).",
-        "micro_stops": "Stop tecnico 45 min cantiere Tube 1: 22:30-23:15"
+        "status": "BLOCCO_TOTALE",
+        "title": "Blocco Totale Fréjus 00:00-02:00 (durata: 2 ore) | Regolare dalle 02:00",
+        "details": "Dalle 00:00 alle 02:00 prosegue la chiusura totale bidirezionale del Traforo del Fréjus (durata: 2 ore residue) con divieto assoluto di transito PL e stoccaggio obbligatorio. A partire dalle ore 02:00 riapertura completa al traffico e transito regolare per il resto della giornata e della notte, senza ulteriori micro-stop.",
+        "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Corridoio del Monte Bianco operativo a regime ordinario. Nessuna chiusura programmata, nessuna deviazione attiva su A40/RN205 e transito h24 privo di limitazioni di peso o sagoma per bilici 40-44t.",
+        "details": "Transito regolare senza interruzioni programmate al TMB per tutta la giornata e la notte.",
+        "micro_stops": ""
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "day_name": "Lunedì",
+      "is_today": false,
+      "frejus": {
+        "status": "RESTRIZIONE",
+        "title": "Transito Regolare con micro-stop tecnico notturno Tube 1",
+        "details": "Traforo del Fréjus operativo con micro-stop di 45 minuti per posa cantiere Tube 1 dalle 22:30 alle 23:15. Asse alternativo primario consigliato durante il contestuale blocco notturno del Monte Bianco.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
+      },
+      "monte_bianco": {
+        "status": "BLOCCO_TOTALE",
+        "title": "Blocco Totale Notturno TMB 22:00-06:00 (durata: 8 ore)",
+        "details": "Interruzione totale programmata della circolazione in entrambi i sensi di marcia dalle ore 22:00 alle ore 06:00 del mattino seguente (durata: 8 ore) per lavori di manutenzione della volta e degli impianti. Nessun itinerario alternativo stradale disponibile per bilici 40-44t nel bacino del Monte Bianco (Colle del Piccolo San Bernardo chiuso stagionalmente per neve e vietato ai 44t; Raccordo A5-SS27 Gran San Bernardo chiuso per lavori gallerie con transito locale difficoltoso). Sosta obbligatoria sui piazzali o deviazione preventiva dei flussi sul Traforo del Fréjus prima delle 22:00.",
         "micro_stops": ""
       }
     }
