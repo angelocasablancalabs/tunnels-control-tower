@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-11-28 00:28",
+  "last_updated": "2026-11-28 17:50",
   "quick_status": {
-    "frejus_next_block": "Chiusura totale notturna in entrambi i sensi lunedì 30 novembre dalle 23:00 alle 06:00 (durata: 7 ore), replicata nelle notti del 1, 2 e 3 dicembre",
-    "monte_bianco_next_block": "Nessun blocco totale imminente al TMB (prossima chiusura notturna il 14 dicembre 22:00-06:00); il 30 novembre restrizione notturna A40 Marnaz 21:00-05:00 (durata: 8 ore) con deviazione RD 1205 aperta ai PL (+30/45 min)"
+    "frejus_next_block": "Blocco Totale Notturno Traforo T4 programmato dalle ore 23:00 di lunedì 30/11 alle 06:00 di martedì 01/12 (durata: 7 ore)",
+    "monte_bianco_next_block": "Nessun blocco totale al Traforo TMB nei prossimi 10 giorni (prossima chiusura il 14/12 ore 22:00); unica restrizione per cantiere su A40 a Marnaz la notte del 30/11 dalle 21:00 alle 05:00 con deviazione PL su RD 1205"
   },
   "days": [
     {
@@ -11,14 +11,14 @@
       "is_today": true,
       "frejus": {
         "status": "RESTRIZIONE",
-        "title": "Stop Tecnico Notturno Tube 1 Fréjus 04:30-05:15 (durata: 45 min) dir. FR-IT",
-        "details": "Micro-interruzione tecnica della circolazione dalle 04:30 alle 05:15 per la posa e rimozione dei dispositivi di balisage/cantiere Tube 1 nella sola direzione Francia-Italia. Nessun itinerario alternativo consentito ai mezzi pesanti 40-44t; sosta regolata nei piazzali di attesa con ritardo stimato pari alla finestra di fermo (+45 min). Circolazione a doppio fornice pienamente regolare per il resto della giornata.",
-        "micro_stops": "Stop tecnico posa cantiere Tube 1: 04:30-05:15 (dir. Francia -> Italia)"
+        "title": "Micro-stop Tecnico Direzione Italia 04:30-05:15 (durata: 45 min) | Transito regolare nel resto della giornata",
+        "details": "Interruzione tecnica programmata di 45 minuti in direzione Francia -> Italia dalle 04:30 alle 05:15 per movimentazione segnaletica e cantiere Tube 1. Nessun blocco totale notturno nel fine settimana. Autostrada A43 Maurienne e tratta SITAF A32 regolarmente agibili per veicoli pesanti 40-44t.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 04:30-05:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Circolazione regolare a doppio senso di marcia attraverso il Traforo del Monte Bianco TMB. Rete autostradale di adduzione A40, viadotti RN205 e asse valdostano A5 Quincinetto-Aosta-Courmayeur privi di cantieri limitanti per complessi veicolari da 40-44t.",
+        "details": "Nessuna interruzione né senso unico alternato programmato al Traforo del Monte Bianco. Tratte autostradali di accesso A40, rampa RN205 e asse A5 prive di limitazioni per bilici 40-44t.",
         "micro_stops": ""
       }
     },
@@ -29,13 +29,13 @@
       "frejus": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo del Fréjus T4 operativo con entrambe le canne. Nessuna chiusura o cantiere impattante programmato su A43 Maurienne e A32 Torino-Bardonecchia. Transito libero per mezzi 40-44t nel rispetto dei consueti divieti domenicali di circolazione.",
+        "details": "Transito regolare senza chiusure né micro-stop tecnici al traforo T4. Tratta autostradale A43 Maurienne e A32 Bardonecchia regolarmente aperte e scorrevoli per i mezzi pesanti in deroga festiva (deperibili/frigo).",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo TMB regolarmente aperto e transitabile senza disagi. Nessuna interruzione su A40, viadotti Les Egratz (RN205) e A5 SAV/RAV per mezzi 40-44t (salvo limitazioni festive generiche di circolazione pesante).",
+        "details": "Nessun cantiere o fermo tecnico programmato al Traforo del Monte Bianco né lungo i corridoi A40/RN205 e A5 Valdostana. Transito regolare.",
         "micro_stops": ""
       }
     },
@@ -45,14 +45,14 @@
       "is_today": false,
       "frejus": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno Traforo Fréjus T4 23:00-06:00 (durata: 7 ore)",
-        "details": "Chiusura totale notturna programmata della galleria in entrambi i sensi di marcia dalle 23:00 alle 06:00 del mattino successivo (01/12) per interventi di manutenzione e prove impiantistiche. Nessun percorso transalpino alternativo ammesso per bilici 40-44t; stoccaggio obbligatorio dei convogli pesanti nelle aree di regolazione di Rieu Sec (lato FR) e autoporto di Susa (lato IT).",
+        "title": "Blocco Totale Notturno Traforo T4 23:00-06:00 (durata: 7 ore)",
+        "details": "Chiusura totale del Traforo del Fréjus in entrambi i sensi di marcia dalle ore 23:00 del 30/11 alle 06:00 del 01/12 per manutenzione straordinaria e collaudi operativi. Nessun itinerario alternativo consentito ai complessi 40-44t nel corridoio della Maurienne; stoccaggio e fermo obbligatorio dei mezzi pesanti nelle aree di accumulo/regolazione (Rieu Sec lato Francia, autoporto Susa lato Italia).",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "RESTRIZIONE",
-        "title": "Chiusura Notturna A40 Bonneville-Cluses 21:00-05:00 con deviazione RD 1205 aperta ai PL (+30/45 min)",
-        "details": "Traforo TMB aperto e regolare. Sull'arteria di adduzione francese A40 in direzione Chamonix, chiusura della tratta tra i caselli n°17 Bonneville Z.I. e n°19 Cluses dalle 21:00 alle 05:00 del 01/12 (durata: 8 ore) per risanamento della pavimentazione a Marnaz. Deviazione attiva su viabilità ordinaria RD 1205 pienamente autorizzata e praticabile per carichi 40-44t con ritardo stimato di +30/45 min.",
+        "title": "Chiusura Notturna A40 Bonneville-Cluses dir. Chamonix 21:00-05:00 con deviazione RD 1205 aperta ai PL (+25/30 min) | Traforo TMB Regolare",
+        "details": "Lavori notturni di rifacimento pavimentazione su A40 all'altezza di Marnaz in direzione Chamonix / Monte Bianco con chiusura della carreggiata tra lo svincolo 17 (Bonneville Z.I.) e lo svincolo 19 (Cluses) nella fascia 21:00-05:00 (durata: 8 ore). Deviazione istituita su viabilità ordinaria RD 1205 pienamente autorizzata e percorribile dai bilici 40-44t con ritardo stimato di +25/30 min. Traforo del Monte Bianco aperto regolarmente 24h.",
         "micro_stops": ""
       }
     },
@@ -62,14 +62,14 @@
       "is_today": false,
       "frejus": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno Traforo Fréjus T4 23:00-06:00 (durata: 7 ore)",
-        "details": "Traforo aperto durante il giorno dopo le 06:00, seguito da una nuova chiusura totale notturna programmata in entrambe le direzioni dalle 23:00 alle 06:00 del mattino successivo (02/12) per manutenzione straordinaria. Nessun tragitto alternativo valicabile per 40-44t; sosta forzata nelle aree di sosta/accumulo di valle. Contestuale chiusura di tratta su A32 gestita con deviazione su SS24 aperta ai PL (+45/60 min) ma totalmente assorbita dal blocco del traforo.",
+        "title": "Blocco Totale Notturno Traforo T4 23:00-06:00 (durata: 7 ore)",
+        "details": "Riapertura al mattino alle 06:00, seguita in serata da nuova chiusura totale notturna bidirezionale del Traforo del Fréjus dalle ore 23:00 del 01/12 alle 06:00 del 02/12 per interventi tecnici sugli impianti di sicurezza. Corridoio impraticabile per mezzi 40-44t durante la fascia oraria; transito interdetto e stoccaggio forzato sulle aree dedicate.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo del Monte Bianco operativo a regime ordinario continuo nei due sensi di marcia. Asse di accesso A40, RN205 e autostrada A5 sgombri da cantieri o deviazioni con impatto sul transito pesante.",
+        "details": "Nessuna chiusura né senso alternato al Traforo del Monte Bianco. Completati gli interventi su A40 a Marnaz; viabilità su A40, RN205 e A5 completamente libera per veicoli pesanti 40-44t.",
         "micro_stops": ""
       }
     },
@@ -79,14 +79,14 @@
       "is_today": false,
       "frejus": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno Traforo Fréjus T4 23:00-06:00 (durata: 7 ore)",
-        "details": "Riapertura diurna alle 06:00 e successiva chiusura totale notturna dell'infrastruttura in ambo i sensi di marcia dalle 23:00 alle 06:00 del 03/12 (durata: 7 ore). Nessun itinerario stradale transalpino alternativo praticabile per complessi 40-44t; stoccaggio obbligatorio dei veicoli pesanti fino alla riapertura mattutina.",
+        "title": "Blocco Totale Notturno Traforo T4 23:00-06:00 (durata: 7 ore)",
+        "details": "Chiusura totale notturna in entrambi i sensi di marcia dalle ore 23:00 del 02/12 alle 06:00 del 03/12 per prosecuzione del programma di manutenzione SFTRF/SITAF. Nessuna deviazione percorribile per carichi pesanti 40-44t; sosta obbligatoria nelle aree di sosta e regolazione.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo TMB regolarmente fruibile. Nessun cantiere o regime a senso unico alternato notturno in vigore; adduzioni autostradali francesi (A40/RN205) e italiane (A5) libere e scorrevoli per i carichi pesanti.",
+        "details": "Corridoio del Monte Bianco pienamente operativo 24h. Nessuna restrizione o limitazione di transito per 40-44t su TMB e tratte autostradali afferenti (A40-A5).",
         "micro_stops": ""
       }
     },
@@ -96,14 +96,14 @@
       "is_today": false,
       "frejus": {
         "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno Traforo Fréjus T4 23:00-06:00 (durata: 7 ore)",
-        "details": "Quarta notte consecutiva di chiusura totale notturna programmata del traforo T4 in entrambi i sensi di marcia dalle 23:00 alle 06:00 del 04/12 (durata: 7 ore) per completamento collaudi tecnici e manutenzione Tube 1/Tube 2. Nessuna alternativa di transito per 40-44t; sosta vincolata nelle aree attrezzate di Rieu Sec e Susa.",
+        "title": "Blocco Totale Notturno Traforo T4 23:00-06:00 (durata: 7 ore)",
+        "details": "Chiusura totale bidirezionale del Traforo del Fréjus dalle ore 23:00 del 03/12 alle 06:00 del 04/12 per collaudi tecnici e manutenzione impiantistica. Assenza totale di itinerari alternativi compatibili con sagoma e peso 40-44t lungo l'asse alpino Cozie/Maurienne; fermo obbligatorio dei veicoli.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Circolazione regolare al Traforo del Monte Bianco TMB. Corridoio transalpino A40, RN205 e A5 completamente aperto e privo di limitazioni per autoarticolati standard Euro 6 da 44 tonnellate.",
+        "details": "Transito regolare senza interruzioni. Il traforo del Monte Bianco è aperto continuativamente ed è consigliato come itinerario di deviazione primaria per il traffico pesante durante la chiusura notturna del Fréjus.",
         "micro_stops": ""
       }
     },
@@ -112,15 +112,15 @@
       "day_name": "Venerdì",
       "is_today": false,
       "frejus": {
-        "status": "BLOCCO_TOTALE",
-        "title": "Blocco Totale Notturno Traforo Fréjus T4 23:00-06:00 (durata: 7 ore)",
-        "details": "Fase finale della chiusura notturna programmata del traforo attiva fino alle ore 06:00 (fascia 23:00-06:00, durata residua giornaliera: 6 ore) con divieto assoluto di transito per tutte le categorie e stoccaggio mezzi pesanti. Dalle 06:00 riapertura completa con ripristino del transito a due canne unidirezionali senza ulteriori chiusure nel fine settimana.",
-        "micro_stops": ""
+        "status": "RESTRIZIONE",
+        "title": "Micro-stop Tecnico Direzione Italia 22:30-23:15 (durata: 45 min) | Transito regolare nelle restanti fasce",
+        "details": "Riapertura completa della galleria alle 06:00 al termine del ciclo di chiusure notturne. In serata, micro-interruzione tecnica programmata dalle 22:30 alle 23:15 (durata: 45 min) in senso Francia -> Italia per operazioni di balisage e cantiere Tube 1. Rete autostradale A43 Maurienne e A32 libera e transitabile per mezzi da 44t senza deviazioni.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Transito privo di criticità. Galleria TMB e viabilità di adduzione A40/RN205/A5 operative senza alcuna interruzione programmata per bilici 40-44t.",
+        "details": "Condizioni di transito regolari in entrambe le direzioni. Nessun cantiere impattante né chiusura notturna su TMB, A40 e A5.",
         "micro_stops": ""
       }
     },
@@ -129,15 +129,15 @@
       "day_name": "Sabato",
       "is_today": false,
       "frejus": {
-        "status": "REGOLARE",
-        "title": "Transito Regolare",
-        "details": "Traforo del Fréjus T4 operativo su entrambe le canne senza cantieri né micro-stop tecnici. Autostrade di accesso A43 Maurienne e A32 scorrevoli senza interruzioni per il trasporto pesante da 44t.",
-        "micro_stops": ""
+        "status": "RESTRIZIONE",
+        "title": "Micro-stop Tecnico Direzione Italia 04:30-05:15 (durata: 45 min) | Transito regolare nel fine settimana",
+        "details": "Breve stop tecnico di 45 minuti dalle 04:30 alle 05:15 (durata: 45 min) in direzione Francia -> Italia per adeguamento configurazione cantiere Tube 1. Nessun blocco esteso nel fine settimana; viabilità ordinaria su A43 e A32 senza limitazioni per mezzi 40-44t.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 04:30-05:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Transito regolare al Traforo del Monte Bianco TMB. Flussi ordinari e assenza di cantieri o deviazioni su A40, rampa delle Egratz (RN205) e asse autostradale A5 SAV.",
+        "details": "Transito regolare attivo 24h per bilici 5 assi 40-44t Euro 6 sia al traforo TMB sia lungo le tratte autostradali di collegamento A40, RN205 e A5.",
         "micro_stops": ""
       }
     },
@@ -148,13 +148,13 @@
       "frejus": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Asse del Fréjus completamente transitabile senza cantieri bloccanti né chiusure notturne, fatte salve le consuete limitazioni generali festive alla circolazione dei mezzi pesanti.",
+        "details": "Nessuna chiusura programmata al Traforo del Fréjus né micro-stop tecnici per Tube 1. Piena percorribilità dell'asse A43 Maurienne e dell'A32 per i veicoli pesanti ammessi alla circolazione festiva.",
         "micro_stops": ""
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo TMB e assi di adduzione A40/RN205/A5 regolarmente aperti e privi di interventi programmati per convogli pesanti 40-44t.",
+        "details": "Transito regolare e fluido al Traforo del Monte Bianco e lungo le tratte autostradali A40, RN205 e A5. Nessun provvedimento restrittivo.",
         "micro_stops": ""
       }
     },
@@ -163,15 +163,15 @@
       "day_name": "Lunedì",
       "is_today": false,
       "frejus": {
-        "status": "REGOLARE",
-        "title": "Transito Regolare",
-        "details": "Nessuna chiusura notturna programmata per la notte tra il 7 e l'8 dicembre al Traforo del Fréjus T4 (il successivo ciclo di chiusure totali è previsto per la notte del 10 dicembre). Tratte di raccordo A43 e A32 pienamente fruibili per veicoli pesanti 40-44t.",
-        "micro_stops": ""
+        "status": "RESTRIZIONE",
+        "title": "Micro-stop Tecnico Direzione Italia 22:30-23:15 (durata: 45 min) | Transito regolare nelle restanti fasce",
+        "details": "Nessuna chiusura totale notturna programmata per la notte di lunedì 07/12 (prossima chiusura totale fissata per il 10/12). Attiva la consueta finestra tecnica di 45 minuti dalle 22:30 alle 23:15 (durata: 45 min) in senso Francia -> Italia per riallestimento cantiere e segnaletica Tube 1. Tratta A43 Maurienne e A32 sgombre e pienamente agibili per i 40-44t.",
+        "micro_stops": "Stop tecnico 45m posa cantiere: 22:30-23:15"
       },
       "monte_bianco": {
         "status": "REGOLARE",
         "title": "Transito Regolare",
-        "details": "Traforo del Monte Bianco regolarmente aperto nei due sensi. Nessun senso unico alternato e nessuna chiusura totale programmata per la nottata (prossimo fermo totale notturno TMB programmato per il 14 dicembre 22:00-06:00). Autostrade A40 e A5 interamente scorrevoli.",
+        "details": "Traforo del Monte Bianco regolarmente operativo senza interruzioni né alternati (il ciclo di chiusure notturne TMB riprenderà il 14/12). Viabilità regolare lungo A40, RN205 e A5 Valdostana.",
         "micro_stops": ""
       }
     }
